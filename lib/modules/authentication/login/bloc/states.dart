@@ -10,3 +10,4 @@ class LoginErrorState extends LoginStates {
   final String error;
   LoginErrorState(this.error);
 }
+class LoginChangePasswordVisibilityState extends LoginStates {}

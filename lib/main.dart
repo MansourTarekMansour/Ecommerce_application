@@ -1,9 +1,22 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:man_shop_app/modules/authentication/register/screens/register_screen.dart';
+import 'package:man_shop_app/shared/bloc_observer.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:man_shop_app/shared/network/local/cache_helper.dart';
+import 'package:man_shop_app/shared/network/remote/dio_helper.dart';
+import 'modules/authentication/login/bloc/cubit.dart';
 import 'modules/on_boarding/screens/on_boarding_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  BlocOverrides.runZoned(
+        () {
+          LoginCubit();
+    },
+    blocObserver: MyBlocObserver(),
+  );
+  DioHelper.init();
+  await CacheHelper.init();
   runApp(MyApp());
 }
 

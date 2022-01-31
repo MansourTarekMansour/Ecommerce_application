@@ -1,28 +1,29 @@
-import 'dart:async';
-
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/modules/authentication/login/bloc/cubit.dart';
 import 'package:man_shop_app/modules/authentication/login/bloc/states.dart';
 import 'package:man_shop_app/modules/authentication/register/screens/register_screen.dart';
-import 'package:man_shop_app/shared/components/google_facebook_login.dart';
 import 'package:man_shop_app/shared/components/custom_text_field.dart';
 import 'package:man_shop_app/shared/components/custom_button.dart';
-import 'package:rounded_loading_button/rounded_loading_button.dart';
+
 
 class LoginScreen extends StatelessWidget {
-  var formKey = GlobalKey<FormState>();
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     return BlocProvider(
       create: (BuildContext context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (BuildContext context, state) {},
         builder: (BuildContext context, Object? state) {
+          LoginCubit cubit = LoginCubit.get(context);
           return Scaffold(
             body: SingleChildScrollView(
               child: SizedBox(
@@ -45,10 +46,11 @@ class LoginScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 30.0),
                         CustomTextField(
+                          controller: emailController,
                           title: const Text(
                             'username',
                             style:
-                            TextStyle(color: Color.fromRGBO(96, 96, 96, 1)),
+                                TextStyle(color: Color.fromRGBO(96, 96, 96, 1)),
                           ),
                           hint: 'Enter your username',
                           hintTopHeight: 15,
@@ -65,28 +67,36 @@ class LoginScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 20.0),
                         CustomTextField(
+                          controller: passwordController,
+                          keyboardType: TextInputType.visiblePassword,
                           title: const Text(
                             'password',
                             style:
-                            TextStyle(color: Color.fromRGBO(96, 96, 96, 1)),
+                                TextStyle(color: Color.fromRGBO(96, 96, 96, 1)),
                           ),
                           hint: 'Enter your password',
-                          obscureText: true,
+                          obscureText: cubit.passwordVisibility,
                           prefixIcon: const Icon(
                             Icons.lock,
                             color: Color.fromRGBO(96, 96, 96, 1),
                           ),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              cubit.changePasswordVisibility();
+                            },
+                            icon: Icon(cubit.passwordSuffixIcon),
+                          ),
+                          validate: (value) {
+                            if (value!.isEmpty) {
+                              return 'password is too short';
+                            }
+                          },
                           onFieldSubmitted: (value) {
                             if (formKey.currentState!.validate()) {
                               LoginCubit.get(context).userLogin(
                                 email: emailController.text,
                                 password: passwordController.text,
                               );
-                            }
-                          },
-                          validate: (value) {
-                            if (value!.isEmpty) {
-                              return 'password is too short';
                             }
                           },
                         ),
@@ -100,50 +110,34 @@ class LoginScreen extends StatelessWidget {
                         const SizedBox(height: 20.0),
                         ConditionalBuilder(
                           condition: state is! LoginLoadingState,
-                          builder: (context) =>
-                              CustomButton(
-                                text: 'LOGIN',
-                                onPressed: () {
-                                  if (formKey.currentState!.validate()) {
-                                    LoginCubit.get(context).userLogin(
-                                      email: emailController.text,
-                                      password: passwordController.text,
-                                    );
-                                  }
-                                },
+                          builder: (context) => CustomButton(
+                            text: 'LOGIN',
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                LoginCubit.get(context).userLogin(
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                );
+                              }
+                            },
+                          ),
+                          fallback: (context) => Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 50,
+                            decoration: const BoxDecoration(
+                              color: Color.fromRGBO(64, 123, 255, 1),
+                              borderRadius: BorderRadiusDirectional.all(
+                                  Radius.circular(15)),
+                            ),
+                            child: const Align(
+                              alignment: Alignment.center,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 4,
+                                color: Colors.white,
                               ),
-                          fallback: (context) =>
-                              Container(
-                                width: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width,
-                                height: 50,
-                                decoration: const BoxDecoration(
-                                  color: Color.fromRGBO(64, 123, 255, 1),
-                                  borderRadius: BorderRadiusDirectional.all(
-                                      Radius.circular(15)),
-                                ),
-                                child: const Align(
-                                  alignment: Alignment.center,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 4,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
+                            ),
+                          ),
                         ),
-                        const SizedBox(height: 30.0),
-                        // const Text(
-                        //   'OR',
-                        //   style: TextStyle(
-                        //     color: Color.fromRGBO(96, 96, 96, 0.5),
-                        //     fontSize: 20,
-                        //     fontWeight: FontWeight.bold,
-                        //   ),
-                        // ),
-                        // const SizedBox(height: 30.0),
-                        // const GoogleFacebookLogin(),
                         const SizedBox(height: 100.0),
                         const Padding(
                           padding: EdgeInsets.only(left: 8.0),
@@ -159,13 +153,12 @@ class LoginScreen extends StatelessWidget {
                         CustomButton(
                           text: 'REGISTER',
                           buttonColor: Colors.black,
-                          onPressed: () =>
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const RegisterScreen(),
-                                ),
-                              ),
+                          onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>  RegisterScreen(),
+                            ),
+                          ),
                         ),
                         const SizedBox(height: 30.0),
                       ],
