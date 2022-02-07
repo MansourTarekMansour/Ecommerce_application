@@ -1,31 +1,41 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:man_shop_app/models/login/LoginModel.dart';
 import 'package:man_shop_app/modules/authentication/login/bloc/states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/shared/network/end_points.dart';
 import 'package:man_shop_app/shared/network/remote/dio_helper.dart';
 
 class LoginCubit extends Cubit<LoginStates>{
+
   LoginCubit() : super(LoginInitialState());
+
   // to take object from cubit
   static LoginCubit get(context) => BlocProvider.of(context);
 
-  void userLogin({required String email, required String password}){
+  LoginModel? loginModel;
+  Future<void> userLogin({required String email, required String password})async{
     emit(LoginLoadingState());
-    DioHelper.postData(url: login, data: {
-      'email': email,
-      'password': password,
-    })!.then((value){
-      print(value!.data);
-      emit(LoginSuccessState());
-    }).catchError((error){
-      emit(LoginErrorState(error.toString()));
-    });
+
+    try {
+     final response= await DioHelper.postData(url: login, data: {
+        'email': email,
+        'password': password,
+      });
+        loginModel =  LoginModel.fromJson(response?.data);
+        log('State: ${loginModel!.status}');
+        // log(loginModel!.message);
+        // log(loginModel!.data!.token);
+        emit(LoginSuccessState(loginModel!));
+
+    } catch (e, s) {
+      log(e.toString());
+      log(s.toString());
+      emit(LoginErrorState(e.toString()));
+    }
   }
 
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
+
 
   bool passwordVisibility = true;
   IconData passwordSuffixIcon = Icons.visibility_outlined;

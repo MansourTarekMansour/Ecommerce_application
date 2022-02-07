@@ -9,7 +9,8 @@ class RegisterCubit extends Cubit<RegisterStates>{
   RegisterCubit() : super(RegisterInitialState());
   // to take object from cubit
   static RegisterCubit get(context) => BlocProvider.of(context);
-
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   bool passwordVisibility = true;
   IconData passwordSuffixIcon = Icons.visibility_outlined;

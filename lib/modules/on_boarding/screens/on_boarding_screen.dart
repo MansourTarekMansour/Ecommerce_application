@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:man_shop_app/modules/authentication/login/screens/login_screen.dart';
+import 'package:man_shop_app/shared/components/navigation.dart';
+import 'package:man_shop_app/shared/network/local/cache_helper.dart';
 import 'package:onboarding/onboarding.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class OnBoardingScreen extends StatelessWidget {
+  void submit(context) {
+    CacheHelper.saveData(
+      key: 'onBoarding',
+      value: true,
+    ).then((value) => navigateReplacement(context, LoginScreen()));
+  }
+
   final onBoardingPagesList = [
     PageModel(
       widget: Column(
         children: [
           SvgPicture.asset('assets/images/on_boarding_shopping.svg'),
-         const SizedBox(
+          const SizedBox(
             width: double.infinity,
             child: Text(
               'WANT TO SHOP',
@@ -18,7 +27,6 @@ class OnBoardingScreen extends StatelessWidget {
                 color: Color.fromRGBO(96, 96, 96, 1),
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-
               ),
             ),
           ),
@@ -117,13 +125,7 @@ class OnBoardingScreen extends StatelessWidget {
             ),
           ),
           proceedButtonRoute: (context) {
-            return Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) => LoginScreen(),
-              ),
-              (route) => false,
-            );
+            return submit(context);
           },
         ),
         isSkippable: true,
