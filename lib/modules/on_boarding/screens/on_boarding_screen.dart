@@ -6,6 +6,7 @@ import 'package:onboarding/onboarding.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class OnBoardingScreen extends StatelessWidget {
+
   void submit(context) {
     CacheHelper.saveData(
       key: 'onBoarding',

@@ -16,9 +16,8 @@ class LoginCubit extends Cubit<LoginStates>{
   LoginModel? loginModel;
   Future<void> userLogin({required String email, required String password})async{
     emit(LoginLoadingState());
-
     try {
-     final response= await DioHelper.postData(url: login, data: {
+     final response = await DioHelper.postData(url: login, data: {
         'email': email,
         'password': password,
       });

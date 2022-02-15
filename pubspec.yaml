@@ -44,6 +44,8 @@ dependencies:
   rounded_loading_button: ^2.0.8
   shared_preferences: ^2.0.13
   fluttertoast: ^8.0.8
+  flutter_snake_navigationbar: ^0.6.0
+
 
 
 dev_dependencies:

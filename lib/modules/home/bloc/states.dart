@@ -6,7 +6,8 @@ class HomeLoadingState extends HomeStates {}
 
 class HomeSuccessState extends HomeStates {}
 
-class LoginErrorState extends HomeStates {
+class HomeErrorState extends HomeStates {
   final String error;
-  LoginErrorState(this.error);
+  HomeErrorState(this.error);
 }
+class ChangeBottomState extends HomeStates{}

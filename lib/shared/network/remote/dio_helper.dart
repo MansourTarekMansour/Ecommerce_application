@@ -14,13 +14,14 @@ class DioHelper {
 
   static Future<Response?>? getData({
     required String url,
-    required Map<String, dynamic> query,
+    Map<String, dynamic>? query,
     String lang = 'en',
     String? token,
   }) async {
-    dio!.options.headers =  {
+    dio!.options.headers = {
+      'Content-Type': 'application/json',
       'lang': lang,
-      'authorization': token,
+      'authorization': token ?? '',
     };
     return await dio?.get(url, queryParameters: query);
   }
@@ -32,9 +33,10 @@ class DioHelper {
     String lang = 'en',
     String? token,
   }) async {
-    dio!.options.headers =  {
-    'lang': lang,
-    'authorization': token,
+    dio!.options.headers = {
+      'Content-Type': 'application/json',
+      'lang': lang,
+      'authorization': token ?? '',
     };
 
     return dio?.post(
