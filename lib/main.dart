@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:man_shop_app/modules/authentication/login/bloc/cubit.dart';
-import 'package:man_shop_app/modules/authentication/login/screens/login_screen.dart';
-import 'package:man_shop_app/modules/authentication/register/bloc/cubit.dart';
-import 'package:man_shop_app/modules/home/bloc/cubit.dart';
-import 'package:man_shop_app/modules/home/screens/home_screen.dart';
+import 'package:man_shop_app/presentation/authentication/login/bloc/cubit.dart';
+import 'package:man_shop_app/presentation/authentication/login/screens/login_screen.dart';
+import 'package:man_shop_app/presentation/authentication/register/bloc/cubit.dart';
+import 'package:man_shop_app/presentation/botton_navigation_bar/bloc/cubit.dart';
+import 'package:man_shop_app/presentation/botton_navigation_bar/screens/home_screen.dart';
+import 'package:man_shop_app/presentation/on_boarding/screens/on_boarding_screen.dart';
+import 'package:man_shop_app/presentation/products/bloc/cubit.dart';
 import 'package:man_shop_app/shared/bloc_observer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/shared/components/constants.dart';
 import 'package:man_shop_app/shared/network/local/cache_helper.dart';
 import 'package:man_shop_app/shared/network/remote/dio_helper.dart';
-import 'modules/on_boarding/screens/on_boarding_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
   final bool onBoarding;
   final String token;
 
-  MyApp({required this.onBoarding, required this.token});
+  const MyApp({Key? key, required this.onBoarding, required this.token}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +36,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => LoginCubit()),
         BlocProvider(create: (context) => RegisterCubit()),
-        BlocProvider(create: (context) => HomeCubit()..getHomeData()),
-
+        BlocProvider(create: (context) => BottomNavigationBarCubit()),
+        BlocProvider(create: (context) => ProductsCubit()..getHomeData()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
         home: onBoarding
             ? token.isEmpty
                 ? LoginScreen()
-                : const HomeScreen()
+                : const BottomNavigationBarScreen()
             : OnBoardingScreen(),
       ),
     );

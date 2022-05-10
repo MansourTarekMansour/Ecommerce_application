@@ -12,7 +12,7 @@ class CustomButton extends StatelessWidget {
   final EdgeInsetsGeometry margin;
   final FontWeight fontWeight;
 
-  CustomButton({
+  const CustomButton({Key? key,
     this.margin = EdgeInsets.zero,
     this.width = double.infinity,
     this.height = 50,
@@ -21,7 +21,7 @@ class CustomButton extends StatelessWidget {
     this.buttonColor =  const Color.fromRGBO(64, 123, 255, 1),
     required this.onPressed,
     required this.text,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

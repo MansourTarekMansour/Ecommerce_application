@@ -23,7 +23,7 @@ class CustomTextField extends StatelessWidget {
   String? Function(String?)? validate;
   void Function(String)? onFieldSubmitted;
 
-  CustomTextField({
+  CustomTextField({Key? key,
     this.title,
     this.titleSize,
     this.hint,
@@ -45,7 +45,7 @@ class CustomTextField extends StatelessWidget {
     this.controller,
     this.validate,
     this.onFieldSubmitted,
-  });
+  }) : super(key: key);
 
 
   @override
