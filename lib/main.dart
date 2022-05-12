@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:man_shop_app/presentation/authentication/login/bloc/cubit.dart';
+import 'package:man_shop_app/data/repositories/authentication/logout_repository/logout_repository.dart';
+import 'package:man_shop_app/data/web_service/authentication/login_web_service.dart';
+import 'package:man_shop_app/data/web_service/authentication/logout_web_service.dart';
+import 'package:man_shop_app/presentation/authentication/login/bloc/login_cubit.dart';
 import 'package:man_shop_app/presentation/authentication/login/screens/login_screen.dart';
-import 'package:man_shop_app/presentation/authentication/register/bloc/cubit.dart';
+import 'package:man_shop_app/presentation/authentication/logout/bloc/logout_cubit.dart';
+import 'package:man_shop_app/presentation/authentication/register/bloc/register_cubit.dart';
 import 'package:man_shop_app/presentation/botton_navigation_bar/bloc/cubit.dart';
 import 'package:man_shop_app/presentation/botton_navigation_bar/screens/home_screen.dart';
 import 'package:man_shop_app/presentation/on_boarding/screens/on_boarding_screen.dart';
@@ -11,9 +15,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/shared/components/constants.dart';
 import 'package:man_shop_app/shared/network/local/cache_helper.dart';
 import 'package:man_shop_app/shared/network/remote/dio_helper.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+import 'data/repositories/authentication/login_repository/login_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   DioHelper.init();
   await CacheHelper.init();
   bool onBoarding = await CacheHelper.getData(key: 'onBoarding') ?? false;
@@ -34,8 +42,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => LoginCubit()),
+        BlocProvider(create: (context) => LoginCubit(LoginRepository(LoginWebService()),)),
         BlocProvider(create: (context) => RegisterCubit()),
+        BlocProvider(create: (context) => LogoutCubit(LogoutRepository(LogoutWebService()))),
         BlocProvider(create: (context) => BottomNavigationBarCubit()),
         BlocProvider(create: (context) => ProductsCubit()..getHomeData()),
       ],

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-//import 'package:google_sign_in/google_sign_in.dart';
+import 'package:man_shop_app/presentation/authentication/login/bloc/login_cubit.dart';
 
 class GoogleFacebookLogin extends StatelessWidget {
   const GoogleFacebookLogin({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final loginCubit = BlocProvider.of<LoginCubit>(context);
     return SizedBox(
       width: double.infinity,
       child: Column(
@@ -24,7 +26,9 @@ class GoogleFacebookLogin extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               InkWell(
-                //onTap: ()=>GoogleSignIn().signIn(),
+                onTap: () {
+                  loginCubit.signInWithGoogle();
+                },
                 child: Container(
                   height: 50.0,
                   decoration: const BoxDecoration(
