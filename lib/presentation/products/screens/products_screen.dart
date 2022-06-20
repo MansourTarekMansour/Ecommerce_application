@@ -4,12 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/presentation/products/bloc/cubit.dart';
 import 'package:man_shop_app/presentation/products/bloc/states.dart';
+import 'package:man_shop_app/presentation/products/widgets/banner_widget.dart';
 
 class ProductsScreen extends StatelessWidget {
-  ProductsScreen({Key? key}) : super(key: key);
-  final PageController smoothPageIndicatorController = PageController();
-
-  //final CarouselController _controller = CarouselController();
+  const ProductsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +19,11 @@ class ProductsScreen extends StatelessWidget {
           body: SafeArea(
             child: state is ProductsLoadingState
                 ? const Center(
-                  child: CircularProgressIndicator(
+                    child: CircularProgressIndicator(
                       strokeWidth: 4,
                       color: Colors.blue,
                     ),
-                )
+                  )
                 : Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 15.0,
@@ -37,33 +35,12 @@ class ProductsScreen extends StatelessWidget {
                           height: 50,
                           width: double.infinity,
                           decoration: const BoxDecoration(
-                              color: Color(0xFFF9A84D),
+                              color: Color(0xFFF2F3F2),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10))),
                         ),
                         const SizedBox(height: 10.0),
-                        Container(
-                          height: 150,
-                          width: double.infinity,
-                          decoration: const BoxDecoration(
-                              //color: Color(0xFFF9A84D),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: PageView.builder(
-                            scrollDirection: Axis.horizontal,
-                            physics: null,
-                            reverse: true,
-                            itemCount:
-                                productsCubit.homeModel.data.banners.length,
-                            itemBuilder: (context, index) {
-                              return Image.network(
-                                productsCubit
-                                    .homeModel.data.banners[index].image,
-                                fit: BoxFit.fitWidth,
-                              );
-                            },
-                          ),
-                        ),
+                        BannerWidget(),
                       ],
                     ),
                   ),
