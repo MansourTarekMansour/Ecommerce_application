@@ -5,7 +5,7 @@ import 'package:man_shop_app/presentation/authentication/login/bloc/login_cubit.
 import 'package:man_shop_app/presentation/authentication/login/bloc/login_states.dart';
 import 'package:man_shop_app/presentation/authentication/login/widgets/login_text_fields.dart';
 import 'package:man_shop_app/presentation/authentication/register/screens/register_screen.dart';
-import 'package:man_shop_app/presentation/botton_navigation_bar/screens/home_screen.dart';
+import 'package:man_shop_app/presentation/bottom_navigation_bar/screens/Bottom_nav_bar_screen.dart';
 import 'package:man_shop_app/shared/components/custom_button.dart';
 import 'package:man_shop_app/presentation/authentication/login/widgets/google_facebook_login.dart';
 import 'package:man_shop_app/shared/components/navigation.dart';
