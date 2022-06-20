@@ -61,7 +61,7 @@ class OnBoardingScreen extends StatelessWidget {
           const SizedBox(
             width: double.infinity,
             child: Text(
-              'Add to cart everything you want to buy',
+              'Add to bottom_nav_bar_screen everything you want to buy',
               style: TextStyle(
                 color: Color.fromRGBO(96, 96, 96, 1),
                 fontSize: 15,
