@@ -6,8 +6,8 @@ import 'package:man_shop_app/presentation/authentication/login/bloc/login_cubit.
 import 'package:man_shop_app/presentation/authentication/login/screens/login_screen.dart';
 import 'package:man_shop_app/presentation/authentication/logout/bloc/logout_cubit.dart';
 import 'package:man_shop_app/presentation/authentication/register/bloc/register_cubit.dart';
-import 'package:man_shop_app/presentation/botton_navigation_bar/bloc/cubit.dart';
-import 'package:man_shop_app/presentation/botton_navigation_bar/screens/home_screen.dart';
+import 'package:man_shop_app/presentation/bottom_navigation_bar/bloc/cubit.dart';
+import 'package:man_shop_app/presentation/bottom_navigation_bar/screens/Bottom_nav_bar_screen.dart';
 import 'package:man_shop_app/presentation/on_boarding/screens/on_boarding_screen.dart';
 import 'package:man_shop_app/presentation/products/bloc/cubit.dart';
 import 'package:man_shop_app/shared/bloc_observer.dart';

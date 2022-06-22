@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:man_shop_app/presentation/botton_navigation_bar/bloc/cubit.dart';
-import 'package:man_shop_app/presentation/botton_navigation_bar/bloc/states.dart';
+import 'package:man_shop_app/presentation/bottom_navigation_bar/bloc/cubit.dart';
+import 'package:man_shop_app/presentation/bottom_navigation_bar/bloc/states.dart';
 import 'package:man_shop_app/shared/styles/color.dart';
 
 class BottomNavigationBarScreen extends StatelessWidget {
@@ -22,17 +22,17 @@ class BottomNavigationBarScreen extends StatelessWidget {
             onTap: (index) => bottomNavCubit.changeBottom(index),
             behaviour: SnakeBarBehaviour.pinned,
             elevation: 10.0,
-            snakeShape: SnakeShape.circle,
+            snakeShape: SnakeShape.indicator,
             snakeViewColor: iconColor,
             backgroundColor: Colors.white,
             selectedItemColor: Colors.white,
             unselectedItemColor: iconColor,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
-              ),
-            ),
+            // shape: const RoundedRectangleBorder(
+            //   borderRadius: BorderRadius.only(
+            //     topLeft: Radius.circular(30),
+            //     topRight: Radius.circular(30),
+            //   ),
+            // ),
             items: [
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(

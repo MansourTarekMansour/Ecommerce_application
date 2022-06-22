@@ -1,12 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:man_shop_app/presentation/products/bloc/cubit.dart';
-import 'package:man_shop_app/presentation/products/bloc/states.dart';
+import 'package:man_shop_app/presentation/products/bloc/products_cubit.dart';
+import 'package:man_shop_app/presentation/products/bloc/products_states.dart';
 import 'package:man_shop_app/shared/styles/color.dart';
 
 class BannerWidget extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     final productsCubit = BlocProvider.of<ProductsCubit>(context);
@@ -15,15 +14,20 @@ class BannerWidget extends StatelessWidget {
         return Stack(
           children: [
             CarouselSlider.builder(
-              itemCount:
-              productsCubit.homeModel.data.banners.length,
+              itemCount: productsCubit.homeModel.data.banners.length,
               itemBuilder: (context, itemIndex, _) {
-                return SizedBox(
-                  width: double.infinity,
-                  child: Image.network(
-                    productsCubit.homeModel.data
-                        .banners[itemIndex].image,
-                    fit: BoxFit.fitWidth,
+                return Padding(
+                  padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ClipRRect(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      borderRadius:  BorderRadius.circular(15),
+                      child: Image.network(
+                        productsCubit.homeModel.data.banners[itemIndex].image,
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
                   ),
                 );
               },
@@ -47,32 +51,28 @@ class BannerWidget extends StatelessWidget {
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (_, index) {
-                      return productsCubit.indicatorIndex ==
-                          index
+                      return productsCubit.indicatorIndex == index
                           ? Container(
-                        width: 25.0,
-                        height: 2.5,
-                        decoration: BoxDecoration(
-                          color: iconColor,
-                          borderRadius:
-                          const BorderRadius.all(
-                              Radius.circular(20)),
-                        ),
-                      )
+                              width: 20.0,
+                              height: 2.5,
+                              decoration: BoxDecoration(
+                                color: iconColor,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(20)),
+                              ),
+                            )
                           : Container(
-                        width: 10.0,
-                        height: 2.5,
-                        decoration: const BoxDecoration(
-                          color: Color(0XFFF4CCCC),
-                          borderRadius: BorderRadius.all(
-                              Radius.circular(20)),
-                        ),
-                      );
+                              width: 10.0,
+                              height: 2.5,
+                              decoration: const BoxDecoration(
+                                color: Color(0XFFF4CCCC),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                              ),
+                            );
                     },
-                    separatorBuilder: (_, index) =>
-                    const SizedBox(width: 5),
-                    itemCount: productsCubit
-                        .homeModel.data.banners.length,
+                    separatorBuilder: (_, index) => const SizedBox(width: 5),
+                    itemCount: productsCubit.homeModel.data.banners.length,
                   ),
                 ),
               ),
