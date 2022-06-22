@@ -5,12 +5,13 @@ import 'package:man_shop_app/presentation/cart/screens/cart_screen.dart';
 import 'package:man_shop_app/presentation/favorites/screens/favorites_screen.dart';
 import 'package:man_shop_app/presentation/products/screens/products_screen.dart';
 import 'package:man_shop_app/presentation/profile/screens/profile_screen.dart';
+import 'package:man_shop_app/shared/styles/color.dart';
 
 class BottomNavigationBarCubit extends Cubit<BottomNavigationBarStates> {
   BottomNavigationBarCubit() : super(BottomNavigationBarInitialState());
 
   int currentIndex = 0;
-  Color homeIconColor = Colors.white;
+  Color homeIconColor = iconColor;
   Color cardIconColor = Colors.black;
   Color favoriteIconColor = Colors.black;
   Color profileIconColor = Colors.black;
@@ -24,10 +25,10 @@ class BottomNavigationBarCubit extends Cubit<BottomNavigationBarStates> {
 
   void changeBottom(int index) {
     currentIndex = index;
-    homeIconColor = index == 0 ? Colors.white : Colors.black;
-    cardIconColor = index == 1 ? Colors.white : Colors.black;
-    favoriteIconColor = index == 2 ? Colors.white : Colors.black;
-    profileIconColor = index == 3 ? Colors.white : Colors.black;
+    homeIconColor = index == 0 ? iconColor : Colors.black;
+    cardIconColor = index == 1 ? iconColor : Colors.black;
+    favoriteIconColor = index == 2 ? iconColor : Colors.black;
+    profileIconColor = index == 3 ? iconColor : Colors.black;
     emit(ChangeBottomState());
   }
 }
