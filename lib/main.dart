@@ -9,7 +9,7 @@ import 'package:man_shop_app/presentation/authentication/register/bloc/register_
 import 'package:man_shop_app/presentation/bottom_navigation_bar/bloc/cubit.dart';
 import 'package:man_shop_app/presentation/bottom_navigation_bar/screens/Bottom_nav_bar_screen.dart';
 import 'package:man_shop_app/presentation/on_boarding/screens/on_boarding_screen.dart';
-import 'package:man_shop_app/presentation/products/bloc/cubit.dart';
+import 'package:man_shop_app/presentation/products/bloc/products_cubit.dart';
 import 'package:man_shop_app/shared/bloc_observer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/shared/components/constants.dart';
