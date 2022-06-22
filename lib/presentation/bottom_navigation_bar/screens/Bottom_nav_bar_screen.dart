@@ -22,17 +22,17 @@ class BottomNavigationBarScreen extends StatelessWidget {
             onTap: (index) => bottomNavCubit.changeBottom(index),
             behaviour: SnakeBarBehaviour.pinned,
             elevation: 10.0,
-            snakeShape: SnakeShape.circle,
+            snakeShape: SnakeShape.indicator,
             snakeViewColor: iconColor,
             backgroundColor: Colors.white,
             selectedItemColor: Colors.white,
             unselectedItemColor: iconColor,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
-              ),
-            ),
+            // shape: const RoundedRectangleBorder(
+            //   borderRadius: BorderRadius.only(
+            //     topLeft: Radius.circular(30),
+            //     topRight: Radius.circular(30),
+            //   ),
+            // ),
             items: [
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(
