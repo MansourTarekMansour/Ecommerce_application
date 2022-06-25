@@ -28,14 +28,6 @@ class ProductsScreen extends StatelessWidget {
                 : SingleChildScrollView(
                   child: Column(
                     children: [
-                      Container(
-                        height: 50,
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                            color: Color(0xFFF2F3F2),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                      ),
                       const SizedBox(height: 15.0),
                       BannerWidget(),
                       const SizedBox(height: 15.0),
