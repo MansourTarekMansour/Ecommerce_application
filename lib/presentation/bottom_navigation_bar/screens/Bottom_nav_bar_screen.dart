@@ -16,6 +16,16 @@ class BottomNavigationBarScreen extends StatelessWidget {
       builder: (context, state) {
         var bottomNavCubit = BlocProvider.of<BottomNavigationBarCubit>(context);
         return Scaffold(
+          appBar: AppBar(
+            title: Container(
+              height: 50,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                  color: Color(0xFFF2F3F2),
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(10))),
+            ),
+          ),
           body: bottomNavCubit.bottomScreens[bottomNavCubit.currentIndex],
           bottomNavigationBar: SnakeNavigationBar.color(
             currentIndex: bottomNavCubit.currentIndex,
