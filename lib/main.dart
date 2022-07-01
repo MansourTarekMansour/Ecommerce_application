@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:man_shop_app/data/repositories/authentication/logout_repository/logout_repository.dart';
+import 'package:man_shop_app/data/repositories/home/home_repository.dart';
 import 'package:man_shop_app/data/web_service/authentication/login_web_service.dart';
 import 'package:man_shop_app/data/web_service/authentication/logout_web_service.dart';
+import 'package:man_shop_app/data/web_service/home/home_web_service.dart';
 import 'package:man_shop_app/presentation/authentication/login/bloc/login_cubit.dart';
 import 'package:man_shop_app/presentation/authentication/login/screens/login_screen.dart';
 import 'package:man_shop_app/presentation/authentication/logout/bloc/logout_cubit.dart';
@@ -9,7 +11,7 @@ import 'package:man_shop_app/presentation/authentication/register/bloc/register_
 import 'package:man_shop_app/presentation/bottom_navigation_bar/bloc/cubit.dart';
 import 'package:man_shop_app/presentation/bottom_navigation_bar/screens/Bottom_nav_bar_screen.dart';
 import 'package:man_shop_app/presentation/on_boarding/screens/on_boarding_screen.dart';
-import 'package:man_shop_app/presentation/products/bloc/products_cubit.dart';
+import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
 import 'package:man_shop_app/shared/bloc_observer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/shared/components/constants.dart';
@@ -25,10 +27,10 @@ Future<void> main() async {
   DioHelper.init();
   await CacheHelper.init();
   bool onBoarding = await CacheHelper.getData(key: 'onBoarding') ?? false;
-  token = await CacheHelper.getData(key: 'token') ?? '';
+  AppConst.token = await CacheHelper.getData(key: 'token') ?? '';
 
   BlocOverrides.runZoned(
-      () => runApp(MyApp(onBoarding: onBoarding, token: token)),
+      () => runApp(MyApp(onBoarding: onBoarding, token: AppConst.token)),
       blocObserver: MyBlocObserver());
 }
 
@@ -46,7 +48,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => RegisterCubit()),
         BlocProvider(create: (context) => LogoutCubit(LogoutRepository(LogoutWebService()))),
         BlocProvider(create: (context) => BottomNavigationBarCubit()),
-        BlocProvider(create: (context) => ProductsCubit()..getHomeData()),
+        BlocProvider(create: (context) => HomeCubit(HomeRepository(HomeWebService()))..getHomeData()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
