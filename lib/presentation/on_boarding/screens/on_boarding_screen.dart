@@ -33,7 +33,7 @@ class OnBoardingScreen extends StatelessWidget {
             ),
           ),
           const Text(
-            'The store contains various products that meet all needs and with the highest standards of quality and safety',
+            'The store contains various home that meet all needs and with the highest standards of quality and safety',
             style: TextStyle(
               color: Color.fromRGBO(96, 96, 96, 1),
               fontSize: 15,

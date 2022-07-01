@@ -1,20 +1,22 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:man_shop_app/presentation/products/bloc/products_cubit.dart';
-import 'package:man_shop_app/presentation/products/bloc/products_states.dart';
+import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
+import 'package:man_shop_app/presentation/home/bloc/home_states.dart';
 import 'package:man_shop_app/shared/styles/color.dart';
 
 class BannerWidget extends StatelessWidget {
+  const BannerWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final productsCubit = BlocProvider.of<ProductsCubit>(context);
-    return BlocBuilder<ProductsCubit, ProductsStates>(
+    final homeCubit = BlocProvider.of<HomeCubit>(context);
+    return BlocBuilder<HomeCubit, HomeStates>(
       builder: (context, state) {
         return Stack(
           children: [
             CarouselSlider.builder(
-              itemCount: productsCubit.homeModel.data.banners.length,
+              itemCount: homeCubit.homeModel.data.banners.length,
               itemBuilder: (context, itemIndex, _) {
                 return Padding(
                   padding: const EdgeInsets.only(left: 15.0, right: 15.0),
@@ -24,7 +26,7 @@ class BannerWidget extends StatelessWidget {
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       borderRadius:  BorderRadius.circular(15),
                       child: Image.network(
-                        productsCubit.homeModel.data.banners[itemIndex].image,
+                        homeCubit.homeModel.data.banners[itemIndex].image,
                         fit: BoxFit.fitWidth,
                       ),
                     ),
@@ -36,7 +38,7 @@ class BannerWidget extends StatelessWidget {
                 viewportFraction: 1,
                 autoPlay: true,
                 onPageChanged: (index, _) {
-                  productsCubit.changeBannerIndex(index);
+                  homeCubit.changeBannerIndex(index);
                 },
               ),
             ),
@@ -51,7 +53,7 @@ class BannerWidget extends StatelessWidget {
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (_, index) {
-                      return productsCubit.indicatorIndex == index
+                      return homeCubit.indicatorIndex == index
                           ? Container(
                               width: 20.0,
                               height: 2.5,
@@ -72,7 +74,7 @@ class BannerWidget extends StatelessWidget {
                             );
                     },
                     separatorBuilder: (_, index) => const SizedBox(width: 5),
-                    itemCount: productsCubit.homeModel.data.banners.length,
+                    itemCount: homeCubit.homeModel.data.banners.length,
                   ),
                 ),
               ),

@@ -2,23 +2,23 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:man_shop_app/presentation/products/bloc/products_cubit.dart';
-import 'package:man_shop_app/presentation/products/bloc/products_states.dart';
-import 'package:man_shop_app/presentation/products/widgets/banner_widget.dart';
-import 'package:man_shop_app/presentation/products/widgets/products_widget.dart';
+import 'package:man_shop_app/presentation/Home/widgets/banner_widget.dart';
+import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
+import 'package:man_shop_app/presentation/home/bloc/home_states.dart';
+import 'package:man_shop_app/presentation/home/widgets/products_widget.dart';
 
-class ProductsScreen extends StatelessWidget {
-  const ProductsScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final productsCubit = BlocProvider.of<ProductsCubit>(context);
-    return BlocConsumer<ProductsCubit, ProductsStates>(
+    final homeCubit = BlocProvider.of<HomeCubit>(context);
+    return BlocConsumer<HomeCubit, HomeStates>(
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
-            child: state is ProductsLoadingState
+            child: state is HomeLoadingState
                 ? const Center(
                     child: CircularProgressIndicator(
                       strokeWidth: 4,
@@ -28,10 +28,10 @@ class ProductsScreen extends StatelessWidget {
                 : SingleChildScrollView(
                   child: Column(
                     children: [
-                      const SizedBox(height: 15.0),
+                      const SizedBox(height: 85.0),
                       BannerWidget(),
                       const SizedBox(height: 15.0),
-                      ProductsWidget(products: productsCubit.homeModel.data.products,),
+                      ProductsWidget(products: homeCubit.homeModel.data.products,),
                     ],
                   ),
                 ),
