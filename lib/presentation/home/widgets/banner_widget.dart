@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
 import 'package:man_shop_app/presentation/home/bloc/home_states.dart';
 import 'package:man_shop_app/shared/styles/color.dart';
@@ -58,7 +59,7 @@ class BannerWidget extends StatelessWidget {
                               width: 20.0,
                               height: 2.5,
                               decoration: BoxDecoration(
-                                color: iconColor,
+                                color: AppColors.mainColor,
                                 borderRadius:
                                     const BorderRadius.all(Radius.circular(20)),
                               ),

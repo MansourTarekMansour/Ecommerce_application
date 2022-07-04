@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/presentation/bottom_navigation_bar/bloc/cubit.dart';
 import 'package:man_shop_app/presentation/bottom_navigation_bar/bloc/states.dart';
 import 'package:man_shop_app/presentation/bottom_navigation_bar/widgets/home_appbar.dart';
@@ -64,10 +65,10 @@ class BottomNavigationBarScreen extends StatelessWidget {
                         behaviour: SnakeBarBehaviour.pinned,
                         elevation: 10.0,
                         snakeShape: SnakeShape.indicator,
-                        snakeViewColor: iconColor,
+                        snakeViewColor: AppColors.mainColor,
                         backgroundColor: Colors.white,
                         selectedItemColor: Colors.white,
-                        unselectedItemColor: iconColor,
+                        unselectedItemColor: AppColors.mainColor,
                         // shape: const RoundedRectangleBorder(
                         //   borderRadius: BorderRadius.only(
                         //     topLeft: Radius.circular(30),
