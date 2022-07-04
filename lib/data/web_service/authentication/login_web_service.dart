@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:man_shop_app/shared/network/end_points.dart';
+import 'package:man_shop_app/shared/network/local/cache_helper.dart';
 import 'package:man_shop_app/shared/network/remote/dio_helper.dart';
 
 class LoginWebService{
@@ -13,6 +14,10 @@ class LoginWebService{
     final data = response?.data as Map<String, dynamic>;
     log(data.toString());
     if (data['status']) {
+      CacheHelper.saveData(
+        key: 'token',
+        value: data['data']['token'],
+      );
       return data ;
     } else {
       throw data['message'];
