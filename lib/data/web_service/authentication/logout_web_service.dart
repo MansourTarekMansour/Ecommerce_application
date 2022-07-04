@@ -6,7 +6,7 @@ import 'package:man_shop_app/shared/network/remote/dio_helper.dart';
 class LogoutWebService {
   Future<Map<String, dynamic>> logout() async {
     final response = await DioHelper.postData(
-      url: logoutUrl,
+      url: 'logout',
       token: CacheHelper.getData(key: 'token'),
     );
     final data = response?.data as Map<String, dynamic>;

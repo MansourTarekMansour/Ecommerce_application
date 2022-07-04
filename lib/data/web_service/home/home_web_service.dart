@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
+import 'package:man_shop_app/core/utils/app_strings.dart';
 import 'package:man_shop_app/shared/components/constants.dart';
 import 'package:man_shop_app/shared/network/end_points.dart';
 import '../../../shared/utils/server_utils.dart';
@@ -8,7 +9,7 @@ import '../../../shared/utils/server_utils.dart';
 class HomeWebService{
 
   Future<Map<String, dynamic>> getHomeData() async {
-    final String url = AppConst.url + home;
+    const String url = AppStrings.url + 'home';
     final headers = {
       "Authorization":  AppConst.token,
       'lang': 'en',
