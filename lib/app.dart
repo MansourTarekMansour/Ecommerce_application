@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:man_shop_app/config/themes/app_themes.dart';
 import 'package:man_shop_app/core/utils/app_strings.dart';
 import 'package:man_shop_app/data/repositories/authentication/logout_repository/logout_repository.dart';
+import 'package:man_shop_app/data/repositories/authentication/register_repository/register_repository.dart';
 import 'package:man_shop_app/data/repositories/home/home_repository.dart';
 import 'package:man_shop_app/data/web_service/authentication/login_web_service.dart';
 import 'package:man_shop_app/data/web_service/authentication/logout_web_service.dart';
+import 'package:man_shop_app/data/web_service/authentication/register_web_service.dart';
 import 'package:man_shop_app/data/web_service/home/home_web_service.dart';
 import 'package:man_shop_app/presentation/authentication/login/bloc/login_cubit.dart';
 import 'package:man_shop_app/presentation/authentication/login/screens/login_screen.dart';
@@ -27,7 +30,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => LoginCubit(LoginRepository(LoginWebService()),)),
-        BlocProvider(create: (context) => RegisterCubit()),
+        BlocProvider(create: (context) => RegisterCubit(RegisterRepository(RegisterWebService()))),
         BlocProvider(create: (context) => LogoutCubit(LogoutRepository(LogoutWebService()))),
         BlocProvider(create: (context) => BottomNavigationBarCubit()),
         BlocProvider(create: (context) => HomeCubit(HomeRepository(HomeWebService()))..getHomeData()),
@@ -35,9 +38,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: AppStrings.appName,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: appTheme(),
         home: onBoarding
             ? token.isEmpty
             ? LoginScreen()

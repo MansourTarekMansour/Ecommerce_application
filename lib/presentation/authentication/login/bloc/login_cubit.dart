@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/data/models/login/login_model.dart';
 import 'package:man_shop_app/data/repositories/authentication/login_repository/login_repository.dart';
 import 'package:man_shop_app/presentation/authentication/login/bloc/login_states.dart';
-import 'package:man_shop_app/shared/network/local/cache_helper.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit(this.loginRepository) : super(LoginInitialState());
@@ -28,10 +27,7 @@ class LoginCubit extends Cubit<LoginStates> {
     try {
       final login =
           await loginRepository.login(email: email, password: password);
-      CacheHelper.saveData(
-        key: 'token',
-        value: login.data!.token,
-      );
+
       emit(LoginSuccessState(login.message));
     } catch (e, s) {
       log('error in userLogin', error: e, stackTrace: s);
