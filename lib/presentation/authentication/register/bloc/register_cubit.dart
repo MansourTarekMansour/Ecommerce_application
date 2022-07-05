@@ -8,7 +8,12 @@ class RegisterCubit extends Cubit<RegisterStates>{
   RegisterCubit(this.registerRepository) : super(RegisterInitialState());
   // to take object from cubit
   static RegisterCubit get(context) => BlocProvider.of(context);
-
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   bool passwordVisibility = true;
   IconData passwordSuffixIcon = Icons.visibility_outlined;
 
@@ -30,8 +35,8 @@ class RegisterCubit extends Cubit<RegisterStates>{
         phone: phone,
       );
       emit(RegisterSuccessState(message));
-    } catch (error,s) {
-      log('user register',error: error,stackTrace: s);
+    } catch (error, s) {
+      log('user register',error: error, stackTrace: s);
       emit(RegisterErrorState(error.toString()));
     }
   }
