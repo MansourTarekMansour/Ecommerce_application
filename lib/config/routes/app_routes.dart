@@ -5,8 +5,10 @@ import 'package:man_shop_app/data/repositories/authentication/login_repository/l
 import 'package:man_shop_app/data/repositories/authentication/register_repository/register_repository.dart';
 import 'package:man_shop_app/data/web_service/authentication/login_web_service.dart';
 import 'package:man_shop_app/data/web_service/authentication/register_web_service.dart';
-import 'package:man_shop_app/data/web_service/home/home_web_service.dart';
 import 'package:man_shop_app/features/home/data/repositories/home_repository.dart';
+import 'package:man_shop_app/features/home/data/web_service/home_web_service.dart';
+import 'package:man_shop_app/features/home/presentation/bloc/home_cubit.dart';
+import 'package:man_shop_app/features/home/presentation/screens/home_screen.dart';
 import 'package:man_shop_app/presentation/authentication/login/bloc/login_cubit.dart';
 import 'package:man_shop_app/presentation/authentication/login/screens/login_screen.dart';
 import 'package:man_shop_app/presentation/authentication/register/bloc/register_cubit.dart';
@@ -24,7 +26,7 @@ class AppRoutes {
   late RegisterRepository registerRepository;
   late RegisterWebService registerWebService;
 
-  //Login
+  //home
   late HomeRepository homeRepository;
   late HomeWebService homeWebService;
 
@@ -74,6 +76,14 @@ class AppRoutes {
           ),
         );
 
+      case Routes.homeRoute:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => BlocProvider(
+            create: (_) => HomeCubit(homeRepository),
+            child: HomeScreen(),
+          ),
+        );
     }
     return null;
   }
