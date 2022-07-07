@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:man_shop_app/features/home/presentation/bloc/home_cubit.dart';
-import 'package:man_shop_app/features/home/presentation/bloc/home_states.dart';
+import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
+import 'package:man_shop_app/presentation/home/bloc/home_states.dart';
 
 class CategoriesBar extends StatelessWidget {
   const CategoriesBar({Key? key}) : super(key: key);

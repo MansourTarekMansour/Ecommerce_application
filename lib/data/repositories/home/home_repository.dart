@@ -1,6 +1,6 @@
-import 'package:man_shop_app/features/home/data/models/categories_model.dart';
-import 'package:man_shop_app/features/home/data/models/home_model.dart';
-import 'package:man_shop_app/features/home/data/web_service/home_web_service.dart';
+import 'package:man_shop_app/data/models/home/categories_model.dart';
+import 'package:man_shop_app/data/models/home/home_model.dart';
+import 'package:man_shop_app/data/web_service/home/home_web_service.dart';
 
 class HomeRepository{
   HomeWebService homeWebService;

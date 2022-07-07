@@ -2,11 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:man_shop_app/features/home/presentation/bloc/home_cubit.dart';
-import 'package:man_shop_app/features/home/presentation/bloc/home_states.dart';
-import 'package:man_shop_app/features/home/presentation/widgets/banner_widget.dart';
-import 'package:man_shop_app/features/home/presentation/widgets/categories_bar.dart';
-import 'package:man_shop_app/features/home/presentation/widgets/products_widget.dart';
+import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
+import 'package:man_shop_app/presentation/home/bloc/home_states.dart';
+import 'package:man_shop_app/presentation/home/widgets/banner_widget.dart';
+import 'package:man_shop_app/presentation/home/widgets/categories_bar.dart';
+import 'package:man_shop_app/presentation/home/widgets/products_widget.dart';
+
 
 
 class HomeScreen extends StatelessWidget {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
-import 'package:man_shop_app/features/home/presentation/screens/home_screen.dart';
 import 'package:man_shop_app/presentation/bottom_navigation_bar/bloc/states.dart';
 import 'package:man_shop_app/presentation/bottom_navigation_bar/widgets/home_appbar.dart';
 import 'package:man_shop_app/presentation/cart/screens/cart_screen.dart';
 import 'package:man_shop_app/presentation/favorites/screens/favorites_screen.dart';
+import 'package:man_shop_app/presentation/home/screens/home_screen.dart';
 import 'package:man_shop_app/presentation/profile/screens/profile_screen.dart';
 import 'package:man_shop_app/shared/styles/color.dart';
 
