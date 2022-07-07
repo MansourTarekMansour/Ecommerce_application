@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
-import 'package:man_shop_app/features/home/data/models/home_model.dart';
+import 'package:man_shop_app/data/models/home/home_model.dart';
 
 class ProductsWidget extends StatelessWidget {
   final List<Products> products;
