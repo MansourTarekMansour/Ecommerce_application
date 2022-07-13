@@ -11,9 +11,7 @@ import 'package:man_shop_app/presentation/product_details/widgets/product_detail
 import 'package:shimmer/shimmer.dart';
 
 class PhotoSlider extends StatelessWidget {
-  PhotoSlider(
-    this.images,
-  );
+  PhotoSlider(this.images);
 
   final List<String> images;
 
@@ -30,64 +28,39 @@ class PhotoSlider extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              PageView.builder(
-                controller: productDetailsCubit.sliderController,
-                itemCount: images.length,
-                onPageChanged: (index) =>
-                    productDetailsCubit.onImageChange(index),
-                itemBuilder: (context, index) => InkWell(
-                  onTap: () {},
-                  child: CachedNetworkImage(
-                    imageUrl: images[index].toString(),
-                    imageBuilder: (context, imageProvider) => Container(
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                          bottomRight: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                        ),
-                        image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.scaleDown,
+              Padding(
+                padding: const EdgeInsets.only(bottom: 25.0),
+                child: PageView.builder(
+                  controller: productDetailsCubit.sliderController,
+                  itemCount: images.length,
+                  onPageChanged: (index) =>
+                      productDetailsCubit.onImageChange(index),
+                  itemBuilder: (context, index) => InkWell(
+                    onTap: () {},
+                    child: CachedNetworkImage(
+                      imageUrl: images[index].toString(),
+                      imageBuilder: (context, imageProvider) => Container(
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                            bottomRight: Radius.circular(10),
+                            bottomLeft: Radius.circular(10),
+                          ),
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.scaleDown,
+                          ),
                         ),
                       ),
+                      placeholder: (context, url) => Shimmer.fromColors(
+                        baseColor: Colors.grey[100]!,
+                        highlightColor: Colors.grey[200]!,
+                        child: SvgPicture.asset(
+                            'assets/images/on_boarding_cart.svg'),
+                      ),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
-                    placeholder: (context, url) => Shimmer.fromColors(
-                      baseColor: Colors.grey[100]!,
-                      highlightColor: Colors.grey[200]!,
-                      child: SvgPicture.asset(
-                          'assets/images/on_boarding_cart.svg'),
-                    ),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                  ),
-                  //child: Image.network(images[index],fit: BoxFit.cover,),
-                ),
-              ),
-              Positioned(
-                top: 25,
-                left: 23,
-                child: Container(
-                  width: 35,
-                  height: 35,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.grey[200],
-                  ),
-                  // ignore: deprecated_member_use
-                  child: MaterialButton(
-                    elevation: 0.0,
-                    highlightElevation: 0.0,
-                    padding: EdgeInsets.zero,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(3),
-                    ),
-                    color: Colors.transparent,
-                    onPressed: () => Navigator.pop(context),
-                    child: SvgPicture.asset(
-                      'assets/images/left_arrow.svg',
-                      color: AppColors.mainColor,
-                      fit: BoxFit.fitWidth,
-                    ),
+                    //child: Image.network(images[index],fit: BoxFit.cover,),
                   ),
                 ),
               ),
@@ -125,7 +98,7 @@ class PhotoSlider extends StatelessWidget {
                   ),
                 ),
               Positioned(
-                bottom: 15,
+                bottom: 5,
                 child: Container(
                   height: 55.0,
                   padding:
@@ -133,71 +106,87 @@ class PhotoSlider extends StatelessWidget {
                   child: ListView.separated(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
-                    itemBuilder: (_, index) => (index ==
-                            productDetailsCubit.currentImgIndex)
-                        ? Container(
-                            width: 50.0,
-                            padding: const EdgeInsets.all(2.0),
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(5.0)),
-                              border: Border.all(
-                                  color: AppColors.mainColor, width: 2),
-                            ),
-                            child: CachedNetworkImage(
-                              imageUrl: images[index].toString(),
-                              fit: BoxFit.contain,
-                              placeholder: (context, url) => Shimmer.fromColors(
-                                baseColor: Colors.grey[100]!,
-                                highlightColor: Colors.grey[300]!,
-                                child: Image.asset(
-                                  'assets/images/logo.png',
+                    itemBuilder: (_, index) => InkWell(
+                      onTap: () {
+                        productDetailsCubit.onImageChange(index);
+                      },
+                      child: (index == productDetailsCubit.currentImgIndex)
+                          ? Container(
+                              width: 50.0,
+                              padding: const EdgeInsets.all(2.0),
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(5.0)),
+                                border: Border.all(
+                                    color: AppColors.mainColor, width: 2),
+                              ),
+                              child: CachedNetworkImage(
+                                imageUrl: images[index].toString(),
+                                fit: BoxFit.contain,
+                                placeholder: (context, url) =>
+                                    Shimmer.fromColors(
+                                  baseColor: Colors.grey[100]!,
+                                  highlightColor: Colors.grey[300]!,
+                                  child: Image.asset(
+                                    'assets/images/logo.png',
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(
+                                  Icons.error,
                                 ),
                               ),
-                              errorWidget: (context, url, error) => const Icon(
-                                Icons.error,
-                              ),
-                            ),
-                          )
-                        : SizedBox(
-                            height: 40.0,
-                            width: 40.0,
-                            child: CachedNetworkImage(
-                              imageUrl: images[index].toString(),
-                              fit: BoxFit.fitWidth,
-                              placeholder: (context, url) => Shimmer.fromColors(
-                                baseColor: Colors.grey[100]!,
-                                highlightColor: Colors.grey[300]!,
-                                child: Image.asset(
-                                  'assets/images/logo.png',
+                            )
+                          : SizedBox(
+                              height: 40.0,
+                              width: 40.0,
+                              child: CachedNetworkImage(
+                                imageUrl: images[index].toString(),
+                                fit: BoxFit.fitWidth,
+                                placeholder: (context, url) =>
+                                    Shimmer.fromColors(
+                                  baseColor: Colors.grey[100]!,
+                                  highlightColor: Colors.grey[300]!,
+                                  child: Image.asset(
+                                    'assets/images/logo.png',
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(
+                                  Icons.error,
                                 ),
                               ),
-                              errorWidget: (context, url, error) => const Icon(
-                                Icons.error,
-                              ),
                             ),
-                          ),
+                    ),
                     separatorBuilder: (_, index) => const SizedBox(width: 15),
                     itemCount: images.length,
                   ),
                 ),
               ),
-              BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(
-                        1 - (productDetailsCubit.imgSliderHeight / 319) >= 0.4
-                            ? min(
-                                1 -
-                                    (productDetailsCubit.imgSliderHeight /
-                                        319) +
-                                    0.4,
-                                1)
-                            : 1 - (productDetailsCubit.imgSliderHeight / 319)),
+              if (productDetailsCubit.imgSliderHeight <=
+                  productDetailsCubit.imgSliderConstHeight - 10)
+                BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(1 -
+                                  (productDetailsCubit.imgSliderHeight /
+                                      productDetailsCubit
+                                          .imgSliderConstHeight) >=
+                              0.4
+                          ? min(
+                              1 -
+                                  (productDetailsCubit.imgSliderHeight /
+                                      productDetailsCubit
+                                          .imgSliderConstHeight) +
+                                  0.4,
+                              1)
+                          : 1 -
+                              (productDetailsCubit.imgSliderHeight /
+                                  productDetailsCubit.imgSliderConstHeight)),
+                    ),
                   ),
                 ),
-              )
             ],
           ),
         ),
