@@ -29,7 +29,7 @@ class PhotoSlider extends StatelessWidget {
             alignment: Alignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(bottom: 25.0),
+                padding: const EdgeInsets.only(bottom: 45.0),
                 child: PageView.builder(
                   controller: productDetailsCubit.sliderController,
                   itemCount: images.length,

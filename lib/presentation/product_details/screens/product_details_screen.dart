@@ -8,6 +8,7 @@ import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/data/models/home/home_model.dart';
 import 'package:man_shop_app/presentation/product_details/bloc/product_details_cubit.dart';
 import 'package:man_shop_app/presentation/product_details/widgets/Product_details_items.dart';
+import 'package:man_shop_app/presentation/product_details/widgets/add_to_cart_button.dart';
 import 'package:man_shop_app/presentation/product_details/widgets/photo_slider.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
@@ -62,11 +63,11 @@ class ProductDetailsScreen extends StatelessWidget {
                     top: 50,
                     left: 23,
                     child: Container(
-                      width: 35,
-                      height: 35,
+                      width: 40,
+                      height: 40,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.grey[200],
+                        color: Colors.grey[200]?.withOpacity(0.7),
                       ),
                       // ignore: deprecated_member_use
                       child: MaterialButton(
@@ -86,6 +87,10 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                   Align(
+                    alignment: Alignment.bottomCenter,
+                    child: AddToCartButton(),
+                  )
                 ],
               ),
             ),

@@ -10,6 +10,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   late Products products;
   final sliderController = PageController();
   int currentImgIndex = 0;
+  int popupMenuValue = 1;
   bool imgSliderVisibility = true;
   double imgSliderHeight = 319;
   final double imgSliderConstHeight = 319;
@@ -26,7 +27,10 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     }
     emit(ChangeImgSliderVisibility());
   }
-
+  void setPopupMenuValue(int value) {
+    popupMenuValue = value;
+    emit(ProductDetailsSuccess());
+  }
   void onImageChange(int index) {
     currentImgIndex = index;
     sliderController.jumpToPage(index);

@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
-import 'package:man_shop_app/data/models/home/home_model.dart';
 import 'package:man_shop_app/presentation/product_details/bloc/product_details_cubit.dart';
 
 class ProductDetailsDescription extends StatelessWidget {
@@ -61,14 +59,42 @@ class ProductDetailsDescription extends StatelessWidget {
                 ),
               ),
               if (product.oldPrice > product.price)
-                Text(
-                  ' - ${product.oldPrice.toString()}',
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey,
-                  ),
-                ),
+                Row(
+                  children: [
+                    const Text(
+                      ' - ',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Stack(
+                      children: [
+                        Positioned(
+                          top: 11,
+                          child: Container(
+                            height: 2.5,
+                            width: product
+                                .oldPrice
+                                .toString()
+                                .length *
+                                12.5,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Text(
+                          product.oldPrice.toString(),
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                )
             ],
           ),
           const SizedBox(height: 20),
