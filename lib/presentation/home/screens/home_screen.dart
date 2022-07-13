@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           body: SafeArea(
-            child: state is HomeLoadingState
+            child: state is HomeGetDataLoadingState || state is HomeGatCategoriesLoadingState
                 ? const Center(
                     child: CircularProgressIndicator(
                       strokeWidth: 4,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:man_shop_app/config/routes/app_routes.dart';
 import 'package:man_shop_app/config/themes/app_themes.dart';
 import 'package:man_shop_app/core/utils/app_strings.dart';
 import 'package:man_shop_app/data/repositories/authentication/logout_repository/logout_repository.dart';
@@ -20,10 +21,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'data/repositories/authentication/login_repository/login_repository.dart';
 
 class MyApp extends StatelessWidget {
+  final AppRoutes appRoutes;
   final bool onBoarding;
   final String token;
 
-  const MyApp({Key? key, required this.onBoarding, required this.token}) : super(key: key);
+  const MyApp({Key? key,required this.appRoutes, required this.onBoarding, required this.token}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: AppStrings.appName,
+        onGenerateRoute:  appRoutes.generateRoutes,
         theme: appTheme(),
         home: onBoarding
             ? token.isEmpty

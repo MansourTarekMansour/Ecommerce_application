@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,100 +19,106 @@ class BottomNavigationBarScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var bottomNavCubit = BlocProvider.of<BottomNavigationBarCubit>(context);
-        return SafeArea(
-          child: NotificationListener<ScrollNotification>(
-            onNotification: (scrollNotification) {
-              if (scrollNotification is UserScrollNotification) {
-                if (scrollNotification.direction == ScrollDirection.forward) {
-                  bottomNavCubit.scrollDirection(scroll: false);
-                } else if (scrollNotification.direction ==
-                        ScrollDirection.reverse &&
-                    scrollNotification.metrics.pixels >= 0) {
-                  bottomNavCubit.scrollDirection(scroll: true);
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle.light.copyWith(
+              statusBarColor: Colors.white
+          ),
+          child: SafeArea(
+            bottom: false,
+            child: NotificationListener<ScrollNotification>(
+              onNotification: (scrollNotification) {
+                if (scrollNotification is UserScrollNotification) {
+                  if (scrollNotification.direction == ScrollDirection.forward) {
+                    bottomNavCubit.scrollDirection(scroll: false);
+                  } else if (scrollNotification.direction ==
+                          ScrollDirection.reverse &&
+                      scrollNotification.metrics.pixels >= 0) {
+                    bottomNavCubit.scrollDirection(scroll: true);
+                  }
                 }
-              }
-              return false;
-            },
-            child: Scaffold(
-              body: Stack(
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    child: bottomNavCubit.pages[bottomNavCubit.currentIndex],
-                  ),
-                  Visibility(
-                    visible: !bottomNavCubit.scrollDown &&
-                        bottomNavCubit.currentIndex == 0,
-                    child: Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        height: 70,
-                        color: Colors.white,
-                        child: HomePageAppBar(),
+                return false;
+              },
+              child: Scaffold(
+                body: Stack(
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      child: bottomNavCubit.pages[bottomNavCubit.currentIndex],
+                    ),
+                    Visibility(
+                      visible: !bottomNavCubit.scrollDown &&
+                          bottomNavCubit.currentIndex == 0,
+                      child: Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          height: 70,
+                          color: Colors.white,
+                          child: HomePageAppBar(),
+                        ),
                       ),
                     ),
-                  ),
-                  Visibility(
-                    visible: !bottomNavCubit.scrollDown,
-                    child: Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: SnakeNavigationBar.color(
-                        currentIndex: bottomNavCubit.currentIndex,
-                        onTap: (index) => bottomNavCubit.changeBottom(index),
-                        behaviour: SnakeBarBehaviour.pinned,
-                        elevation: 10.0,
-                        snakeShape: SnakeShape.indicator,
-                        snakeViewColor: AppColors.mainColor,
-                        backgroundColor: Colors.white,
-                        selectedItemColor: Colors.white,
-                        unselectedItemColor: AppColors.mainColor,
-                        // shape: const RoundedRectangleBorder(
-                        //   borderRadius: BorderRadius.only(
-                        //     topLeft: Radius.circular(30),
-                        //     topRight: Radius.circular(30),
-                        //   ),
-                        // ),
-                        items: [
-                          BottomNavigationBarItem(
-                            icon: SvgPicture.asset(
-                              'assets/icons/home.svg',
-                              width: 22,
-                              color: bottomNavCubit.homeIconColor,
+                    Visibility(
+                      visible: !bottomNavCubit.scrollDown,
+                      child: Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: SnakeNavigationBar.color(
+                          currentIndex: bottomNavCubit.currentIndex,
+                          onTap: (index) => bottomNavCubit.changeBottom(index),
+                          behaviour: SnakeBarBehaviour.pinned,
+                          elevation: 10.0,
+                          snakeShape: SnakeShape.indicator,
+                          snakeViewColor: AppColors.mainColor,
+                          backgroundColor: Colors.white,
+                          selectedItemColor: Colors.white,
+                          unselectedItemColor: AppColors.mainColor,
+                          // shape: const RoundedRectangleBorder(
+                          //   borderRadius: BorderRadius.only(
+                          //     topLeft: Radius.circular(30),
+                          //     topRight: Radius.circular(30),
+                          //   ),
+                          // ),
+                          items: [
+                            BottomNavigationBarItem(
+                              icon: SvgPicture.asset(
+                                'assets/icons/home.svg',
+                                width: 22,
+                                color: bottomNavCubit.homeIconColor,
+                              ),
+                              label: 'Home',
                             ),
-                            label: 'Home',
-                          ),
-                          BottomNavigationBarItem(
-                            icon: SvgPicture.asset(
-                              'assets/icons/card.svg',
-                              width: 22,
-                              color: bottomNavCubit.cardIconColor,
+                            BottomNavigationBarItem(
+                              icon: SvgPicture.asset(
+                                'assets/icons/card.svg',
+                                width: 22,
+                                color: bottomNavCubit.cardIconColor,
+                              ),
+                              label: 'Categories',
                             ),
-                            label: 'Categories',
-                          ),
-                          BottomNavigationBarItem(
-                            icon: Icon(
-                              Icons.favorite_border,
-                              color: bottomNavCubit.favoriteIconColor,
+                            BottomNavigationBarItem(
+                              icon: Icon(
+                                Icons.favorite_border,
+                                color: bottomNavCubit.favoriteIconColor,
+                              ),
+                              label: 'Favorites',
                             ),
-                            label: 'Favorites',
-                          ),
-                          BottomNavigationBarItem(
-                            icon: SvgPicture.asset(
-                              'assets/icons/profile.svg',
-                              width: 20,
-                              color: bottomNavCubit.profileIconColor,
+                            BottomNavigationBarItem(
+                              icon: SvgPicture.asset(
+                                'assets/icons/profile.svg',
+                                width: 20,
+                                color: bottomNavCubit.profileIconColor,
+                              ),
+                              label: 'Profile',
                             ),
-                            label: 'Profile',
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
