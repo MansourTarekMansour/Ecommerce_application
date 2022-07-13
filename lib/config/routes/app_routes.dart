@@ -13,6 +13,8 @@ import 'package:man_shop_app/presentation/authentication/register/bloc/register_
 import 'package:man_shop_app/presentation/authentication/register/screens/register_screen.dart';
 import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
 import 'package:man_shop_app/presentation/home/screens/home_screen.dart';
+import 'package:man_shop_app/presentation/product_details/bloc/product_details_cubit.dart';
+import 'package:man_shop_app/presentation/product_details/screens/product_details_screen.dart';
 
 class AppRoutes {
   // user data
@@ -81,7 +83,16 @@ class AppRoutes {
           settings: settings,
           builder: (_) => BlocProvider(
             create: (_) => HomeCubit(homeRepository),
-            child: HomeScreen(),
+            child: const HomeScreen(),
+          ),
+        );
+
+      case Routes.productDetailsRoute:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => BlocProvider(
+            create: (_) => ProductDetailsCubit(),
+            child: ProductDetailsScreen(),
           ),
         );
     }
