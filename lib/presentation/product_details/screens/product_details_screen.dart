@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +15,6 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = ModalRoute.of(context)!.settings.arguments! as Products;
-    log(product.images.toString());
     return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
       builder: (context, state) {
         final productDetailsCubit =
@@ -27,7 +24,6 @@ class ProductDetailsScreen extends StatelessWidget {
           body: NotificationListener<ScrollNotification>(
             onNotification: (scrollNotification) {
               if (scrollNotification.metrics.axisDirection == AxisDirection.down || scrollNotification.metrics.axisDirection == AxisDirection.up){
-                log(scrollNotification.metrics.pixels.toString());
                 productDetailsCubit.changeImgSliderVisibility(
                     scrollNotification.metrics.pixels.toDouble());
               }

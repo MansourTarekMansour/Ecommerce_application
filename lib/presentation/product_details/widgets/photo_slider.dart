@@ -1,10 +1,8 @@
 import 'dart:math';
 import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/presentation/product_details/bloc/product_details_cubit.dart';
 import 'package:man_shop_app/presentation/product_details/widgets/product_details_arrow.dart';
@@ -12,7 +10,6 @@ import 'package:shimmer/shimmer.dart';
 
 class PhotoSlider extends StatelessWidget {
   PhotoSlider(this.images);
-
   final List<String> images;
 
   @override
@@ -54,8 +51,8 @@ class PhotoSlider extends StatelessWidget {
                       placeholder: (context, url) => Shimmer.fromColors(
                         baseColor: Colors.grey[100]!,
                         highlightColor: Colors.grey[200]!,
-                        child: SvgPicture.asset(
-                            'assets/images/on_boarding_cart.svg'),
+                        child: Image.asset(
+                            'assets/images/almansoury_text.png'),
                       ),
                       errorWidget: (context, url, error) =>
                           const Icon(Icons.error),
@@ -128,7 +125,7 @@ class PhotoSlider extends StatelessWidget {
                                   baseColor: Colors.grey[100]!,
                                   highlightColor: Colors.grey[300]!,
                                   child: Image.asset(
-                                    'assets/images/logo.png',
+                                    'assets/images/almansoury_text.png',
                                   ),
                                 ),
                                 errorWidget: (context, url, error) =>

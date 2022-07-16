@@ -12,10 +12,10 @@ class AddToCartButton extends StatelessWidget {
     final productDetailsCubit =
     BlocProvider.of<ProductDetailsCubit>(context);
     return Container(
-      height: 90,
+      height: 70,
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0).copyWith(top: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15.0).copyWith(bottom: 10, top: 10),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -23,7 +23,7 @@ class AddToCartButton extends StatelessWidget {
               flex: 1,
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.3,
-                height: 60,
+                height: 45,
                 decoration: BoxDecoration(
                   color: Colors.grey.withOpacity(0.4),
                   borderRadius:
@@ -37,11 +37,11 @@ class AddToCartButton extends StatelessWidget {
                       Icon(
                         Icons.arrow_drop_up,
                         color: AppColors.mainColor,
-                        size: 30,
+                        size: 40,
                       ),
-                      const SizedBox(width: 5),
+                      const SizedBox(width: 0),
                       Padding(
-                        padding: const EdgeInsets.only(right: 10.0),
+                        padding: const EdgeInsets.only(right: 15.0),
                         child: Text(
                           productDetailsCubit.popupMenuValue.toString(),
                           style: TextStyle(
@@ -130,14 +130,16 @@ class AddToCartButton extends StatelessWidget {
             const SizedBox(width: 15),
             Flexible(
               flex: 2,
-              child: CustomButton(
-                text: 'ADD TO CART',
-                onPressed: () {},
-                height: 60,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                width: MediaQuery.of(context).size.width * 0.6,
-                buttonColor: AppColors.mainColor,
+              child: SizedBox(
+                height: 45,
+                child: CustomButton(
+                  text: 'ADD TO CART',
+                  onPressed: () {},
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  buttonColor: AppColors.mainColor,
+                ),
               ),
             )
           ],
