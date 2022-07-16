@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -36,7 +34,6 @@ class CategoriesBar extends StatelessWidget {
               itemCount: 5,
               padding: const EdgeInsets.only(left: 15.0, right: 15.0),
               itemBuilder: (context, index) {
-                log(homeCubit.categoriesBarData['images']![index]);
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
