@@ -46,4 +46,27 @@ class HomeWebService{
       throw getErrorMessage(data);
     }
   }
+
+  Future<String> isFavorite(int id) async {
+    const String url = AppStrings.url + 'favorites';
+    final headers = {
+      "Authorization":  AppConst.token,
+      'lang': 'en',
+      'Content-Type': 'application/json',
+    };
+    final http.Response response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: jsonEncode({
+        'product_id': id,
+      }),
+    );
+    final data = json.decode(response.body) as Map<String, dynamic>;
+    log('getHomeData  ****************: ${data.toString()}');
+    if (data['status'] == true) {
+      return data['message'];
+    } else {
+      throw getErrorMessage(data);
+    }
+  }
 }

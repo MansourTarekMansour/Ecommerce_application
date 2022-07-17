@@ -43,6 +43,28 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
+  Future<void> isFavorites({required int id}) async {
+    try {
+      for(int i = 0; i < homeModel.data.products.length; i++) {
+        if (homeModel.data.products[i].id == id) {
+          homeModel.data.products[i].inFavorites = !homeModel.data.products[i].inFavorites;
+          break;
+        }
+      }
+      String message = await homeRepository.isFavorite(id);
+      emit(HomeSuccessState());
+    } catch (error, s) {
+      for(int i = 0; i < homeModel.data.products.length; i++) {
+        if (homeModel.data.products[i].id == id) {
+          homeModel.data.products[i].inFavorites = !homeModel.data.products[i].inFavorites;
+          break;
+        }
+      }
+      log('isFavorites error', error: error, stackTrace: s);
+      emit(HomeErrorState(error.toString()));
+    }
+  }
+
   // Future<void> getCategoriesData() async {
   //   emit(HomeGatCategoriesLoadingState());
   //   try {

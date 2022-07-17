@@ -11,10 +11,14 @@ import 'package:man_shop_app/presentation/authentication/login/bloc/login_cubit.
 import 'package:man_shop_app/presentation/authentication/login/screens/login_screen.dart';
 import 'package:man_shop_app/presentation/authentication/register/bloc/register_cubit.dart';
 import 'package:man_shop_app/presentation/authentication/register/screens/register_screen.dart';
+import 'package:man_shop_app/presentation/cart/bloc/cart_cubit.dart';
+import 'package:man_shop_app/presentation/cart/screens/cart_screen.dart';
 import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
 import 'package:man_shop_app/presentation/home/screens/home_screen.dart';
 import 'package:man_shop_app/presentation/product_details/bloc/product_details_cubit.dart';
 import 'package:man_shop_app/presentation/product_details/screens/product_details_screen.dart';
+import 'package:man_shop_app/presentation/search/bloc/search_cubit.dart';
+import 'package:man_shop_app/presentation/search/screens/search_screen.dart';
 
 class AppRoutes {
   // user data
@@ -93,6 +97,24 @@ class AppRoutes {
           builder: (_) => BlocProvider(
             create: (_) => ProductDetailsCubit(),
             child: ProductDetailsScreen(),
+          ),
+        );
+
+      case Routes.cartRoute:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => BlocProvider(
+            create: (_) => CartCubit(),
+            child: CartScreen(),
+          ),
+        );
+
+      case Routes.searchRoute:
+        return MaterialPageRoute(
+          settings: settings,
+          builder: (_) => BlocProvider(
+            create: (_) => SearchCubit(),
+            child: SearchScreen(),
           ),
         );
     }

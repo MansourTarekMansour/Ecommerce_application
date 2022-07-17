@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:man_shop_app/config/routes/routes.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
-import 'package:man_shop_app/data/models/home/home_model.dart';
-import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
+import 'package:man_shop_app/data/models/Favorites/favorites_model.dart';
 
-class ProductsWidget extends StatelessWidget {
-  final List<Products> products;
 
-  ProductsWidget({required this.products, Key? key}) : super(key: key);
+class FavoriteProductsWidget extends StatelessWidget {
+  final List<Data> products;
+  FavoriteProductsWidget({required this.products, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +61,7 @@ class ProductsWidget extends StatelessWidget {
                             topRight: Radius.circular(15),
                           ),
                           child: Image.network(
-                            products[index].image,
+                            products[index].product.image,
                             fit: BoxFit.contain,
                             height: 150,
                           ),
@@ -76,7 +74,7 @@ class ProductsWidget extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: Text(
-                            products[index].name,
+                            products[index].product.name,
                             maxLines: 2,
                             style: const TextStyle(
                               fontSize: 12,
@@ -85,25 +83,25 @@ class ProductsWidget extends StatelessWidget {
                           ),
                         ),
                       ),
+                      // Positioned(
+                      //   top: 180,
+                      //   right: 10,
+                      //   child: InkWell(
+                      //     onTap: () {
+                      //       BlocProvider.of<HomeCubit>(context)
+                      //           .isFavorites(id: products[index].id);
+                      //     },
+                      //     child: Icon(
+                      //       Icons.favorite,
+                      //       color: products[index].product.inFavorites
+                      //           ? Colors.red
+                      //           : Colors.grey.withOpacity(0.5),
+                      //       size: 30,
+                      //     ),
+                      //   ),
+                      // ),
                       Positioned(
-                        top: 180,
-                        right: 10,
-                        child: InkWell(
-                          onTap: () {
-                            BlocProvider.of<HomeCubit>(context)
-                                .isFavorites(id: products[index].id);
-                          },
-                          child: Icon(
-                            Icons.favorite,
-                            color: products[index].inFavorites
-                                ? Colors.red
-                                : Colors.grey.withOpacity(0.5),
-                            size: 30,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: products[index].oldPrice > products[index].price
+                        top: products[index].product.oldPrice > products[index].product.price
                             ? 165
                             : 172.5,
                         left: 0,
@@ -122,7 +120,7 @@ class ProductsWidget extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                products[index].price.toString(),
+                                products[index].product.price.toString(),
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
@@ -133,7 +131,7 @@ class ProductsWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                      if (products[index].oldPrice > products[index].price)
+                      if (products[index].product.oldPrice > products[index].product.price)
                         Positioned(
                           top: 180,
                           left: 0,
@@ -157,7 +155,7 @@ class ProductsWidget extends StatelessWidget {
                                       top: 7.3,
                                       child: Container(
                                         height: 1.5,
-                                        width: products[index]
+                                        width: products[index].product
                                                 .oldPrice
                                                 .toString()
                                                 .length *
@@ -166,7 +164,7 @@ class ProductsWidget extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      products[index].oldPrice.toString(),
+                                      products[index].product.oldPrice.toString(),
                                       style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.bold,

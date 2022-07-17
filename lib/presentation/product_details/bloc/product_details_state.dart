@@ -9,4 +9,6 @@ class ProductDetailsSuccess extends ProductDetailsState {}
 
 class ProductDetailsChangePhoto extends ProductDetailsState {}
 
+class ProductDetailsISFavorites extends ProductDetailsState {}
+
 class ChangeImgSliderVisibility extends ProductDetailsState {}

@@ -14,6 +14,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   bool imgSliderVisibility = true;
   double imgSliderHeight = 319;
   final double imgSliderConstHeight = 319;
+  int productIndex = -1;
 
   void changeImgSliderVisibility(double height) {
     if (height >= 319) {
@@ -45,5 +46,8 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   void changeImgBack() {
     currentImgIndex--;
     emit(ProductDetailsChangePhoto());
+  }
+  void isFavorite() {
+    emit(ProductDetailsISFavorites());
   }
 }

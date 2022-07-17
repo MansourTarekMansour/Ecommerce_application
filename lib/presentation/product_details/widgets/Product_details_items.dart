@@ -38,7 +38,7 @@ class ProductDetailsItems extends StatelessWidget {
                 ),
               ),
             ),
-            const ProductDetailsDescription(),
+            ProductDetailsDescription(),
           ],
         ),
       ),
