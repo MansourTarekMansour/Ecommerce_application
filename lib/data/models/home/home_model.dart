@@ -70,8 +70,8 @@ class Products {
   final String image;
   final String name;
   final String description;
-  final List<String> images;
-  final bool inFavorites;
+  List<String> images;
+  bool inFavorites;
   final bool inCart;
 
   factory Products.fromJson(Map<String, dynamic> json) => Products(

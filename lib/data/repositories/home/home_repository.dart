@@ -15,4 +15,9 @@ class HomeRepository{
     final data = await homeWebService.getHomeCategories();
     return CategoriesModel.fromJson(data['data']);
   }
+
+  Future<String> isFavorite(int id) async {
+    final data = await homeWebService.isFavorite(id);
+    return data as String;
+  }
 }

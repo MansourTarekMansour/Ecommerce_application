@@ -14,12 +14,13 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = ModalRoute.of(context)!.settings.arguments! as Products;
+    final arg = ModalRoute.of(context)!.settings.arguments! as List;
     return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
       builder: (context, state) {
         final productDetailsCubit =
             BlocProvider.of<ProductDetailsCubit>(context);
-        productDetailsCubit.products = product;
+        productDetailsCubit.products = arg[0] as Products;
+        productDetailsCubit.productIndex = arg[1] as int;
         return Scaffold(
           body: NotificationListener<ScrollNotification>(
             onNotification: (scrollNotification) {
@@ -45,7 +46,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     top: 0,
                     right: 0,
                     left: 0,
-                    child: PhotoSlider(product.images),
+                    child: PhotoSlider(productDetailsCubit.products.images),
                   ),
                   if (productDetailsCubit.imgSliderHeight <=
                       100)

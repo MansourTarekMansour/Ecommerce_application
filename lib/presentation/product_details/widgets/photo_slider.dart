@@ -145,7 +145,7 @@ class PhotoSlider extends StatelessWidget {
                                   baseColor: Colors.grey[100]!,
                                   highlightColor: Colors.grey[300]!,
                                   child: Image.asset(
-                                    'assets/images/logo.png',
+                                    'assets/images/almansoury_text.png',
                                   ),
                                 ),
                                 errorWidget: (context, url, error) =>
