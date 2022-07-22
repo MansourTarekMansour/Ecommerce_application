@@ -6,11 +6,13 @@ import 'package:man_shop_app/config/themes/app_themes.dart';
 import 'package:man_shop_app/core/utils/app_strings.dart';
 import 'package:man_shop_app/data/repositories/authentication/logout_repository/logout_repository.dart';
 import 'package:man_shop_app/data/repositories/authentication/register_repository/register_repository.dart';
+import 'package:man_shop_app/data/repositories/cart/cart_repository.dart';
 import 'package:man_shop_app/data/repositories/favorites/favorites_repository.dart';
 import 'package:man_shop_app/data/repositories/home/home_repository.dart';
 import 'package:man_shop_app/data/web_service/authentication/login_web_service.dart';
 import 'package:man_shop_app/data/web_service/authentication/logout_web_service.dart';
 import 'package:man_shop_app/data/web_service/authentication/register_web_service.dart';
+import 'package:man_shop_app/data/web_service/cart/cart_web_service.dart';
 import 'package:man_shop_app/data/web_service/favorites/favorites_web_service.dart';
 import 'package:man_shop_app/data/web_service/home/home_web_service.dart';
 import 'package:man_shop_app/presentation/authentication/login/bloc/login_cubit.dart';
@@ -19,6 +21,7 @@ import 'package:man_shop_app/presentation/authentication/logout/bloc/logout_cubi
 import 'package:man_shop_app/presentation/authentication/register/bloc/register_cubit.dart';
 import 'package:man_shop_app/presentation/bottom_navigation_bar/bloc/cubit.dart';
 import 'package:man_shop_app/presentation/bottom_navigation_bar/screens/Bottom_nav_bar_screen.dart';
+import 'package:man_shop_app/presentation/cart/bloc/cart_cubit.dart';
 import 'package:man_shop_app/presentation/favorites/bloc/favorites_cubit.dart';
 import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
 import 'package:man_shop_app/presentation/on_boarding/screens/on_boarding_screen.dart';
@@ -60,6 +63,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 FavoritesCubit(FavoritesRepository(FavoritesWebService()))..getFavorites()),
+        BlocProvider(
+            create: (context) =>
+            CartCubit(CartRepository(CartWebService()))..getCartData()),
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

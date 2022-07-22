@@ -5,7 +5,7 @@ import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
 import 'package:man_shop_app/presentation/home/bloc/home_states.dart';
 import 'package:man_shop_app/presentation/home/widgets/banner_widget.dart';
 import 'package:man_shop_app/presentation/home/widgets/categories_bar.dart';
-import 'package:man_shop_app/presentation/home/widgets/products_widget.dart';
+import 'package:man_shop_app/shared/components/products_widget.dart';
 import 'package:man_shop_app/shared/components/smart_refresh.dart';
 
 class HomeScreen extends StatelessWidget {
