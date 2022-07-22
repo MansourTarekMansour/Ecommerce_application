@@ -5,14 +5,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:man_shop_app/config/routes/routes.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
-import 'package:man_shop_app/data/models/Favorites/favorites_model.dart';
+import 'package:man_shop_app/data/models/home/home_model.dart';
 import 'package:man_shop_app/presentation/favorites/bloc/favorites_cubit.dart';
 import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
 
-class FavoriteProductsWidget extends StatelessWidget {
-  final List<Data> products;
+class ProductsWidget extends StatelessWidget {
+  final List<Products> products;
+  final isFavorite;
 
-  FavoriteProductsWidget({required this.products, Key? key}) : super(key: key);
+  ProductsWidget({required this.products, this.isFavorite = false, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class FavoriteProductsWidget extends StatelessWidget {
                       Routes.productDetailsRoute,
                       arguments: [
                         products[index],
-                        index,
+                        products[index].id,
                       ],
                     );
                   },
@@ -52,8 +54,8 @@ class FavoriteProductsWidget extends StatelessWidget {
                       borderRadius: const BorderRadius.all(
                         Radius.circular(15),
                       ),
-                      border:
-                          Border.all(color: AppColors.mainColor.withOpacity(0.2)),
+                      border: Border.all(
+                          color: AppColors.mainColor.withOpacity(0.2)),
                     ),
                     child: SizedBox(
                       child: Stack(
@@ -69,7 +71,7 @@ class FavoriteProductsWidget extends StatelessWidget {
                                 topRight: Radius.circular(15),
                               ),
                               child: Image.network(
-                                products[index].product.image,
+                                products[index].image,
                                 fit: BoxFit.contain,
                                 height: 150,
                               ),
@@ -82,7 +84,7 @@ class FavoriteProductsWidget extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: Text(
-                                products[index].product.name,
+                                products[index].name,
                                 maxLines: 2,
                                 style: const TextStyle(
                                   fontSize: 12,
@@ -92,10 +94,10 @@ class FavoriteProductsWidget extends StatelessWidget {
                             ),
                           ),
                           Positioned(
-                            top: products[index].product.oldPrice >
-                                    products[index].product.price
-                                ? 165
-                                : 172.5,
+                            top:
+                                products[index].oldPrice > products[index].price
+                                    ? 165
+                                    : 172.5,
                             left: 0,
                             right: 0,
                             child: Padding(
@@ -112,7 +114,7 @@ class FavoriteProductsWidget extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    products[index].product.price.toString(),
+                                    products[index].price.toString(),
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
@@ -123,8 +125,7 @@ class FavoriteProductsWidget extends StatelessWidget {
                               ),
                             ),
                           ),
-                          if (products[index].product.oldPrice >
-                              products[index].product.price)
+                          if (products[index].oldPrice > products[index].price)
                             Positioned(
                               top: 180,
                               left: 0,
@@ -149,7 +150,6 @@ class FavoriteProductsWidget extends StatelessWidget {
                                           child: Container(
                                             height: 1.5,
                                             width: products[index]
-                                                    .product
                                                     .oldPrice
                                                     .toString()
                                                     .length *
@@ -158,10 +158,7 @@ class FavoriteProductsWidget extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          products[index]
-                                              .product
-                                              .oldPrice
-                                              .toString(),
+                                          products[index].oldPrice.toString(),
                                           style: const TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
@@ -179,34 +176,35 @@ class FavoriteProductsWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                if(favoritesCubit.notFavorite[index])
-                BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-                  child: Container(
-                    height: 220,
-                    width: 173,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.4),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(15),
+                if (isFavorite)
+                  if (favoritesCubit.notFavorite[index])
+                    BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+                      child: Container(
+                        height: 220,
+                        width: 173,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.4),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(15),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
                 Positioned(
                   top: 180,
                   right: 10,
                   child: InkWell(
                     onTap: () {
                       BlocProvider.of<HomeCubit>(context)
-                          .isFavorites(id: products[index].product.id);
-                      favoritesCubit.isFavorite(
-                          index
-                      );
+                          .isFavorites(id: products[index].id);
+                      favoritesCubit.isFavorite(index);
                     },
                     child: Icon(
                       Icons.favorite,
-                      color: !favoritesCubit.notFavorite[index]? Colors.red : Colors.grey.withOpacity(0.5),
+                      color: products[index].inFavorites
+                          ? Colors.red
+                          : Colors.grey.withOpacity(0.5),
                       size: 30,
                     ),
                   ),

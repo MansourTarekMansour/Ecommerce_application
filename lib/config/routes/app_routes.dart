@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/config/routes/routes.dart';
 import 'package:man_shop_app/data/repositories/authentication/login_repository/login_repository.dart';
 import 'package:man_shop_app/data/repositories/authentication/register_repository/register_repository.dart';
+import 'package:man_shop_app/data/repositories/cart/cart_repository.dart';
 import 'package:man_shop_app/data/web_service/authentication/login_web_service.dart';
 import 'package:man_shop_app/data/web_service/authentication/register_web_service.dart';
 import 'package:man_shop_app/data/repositories/home/home_repository.dart';
+import 'package:man_shop_app/data/web_service/cart/cart_web_service.dart';
 import 'package:man_shop_app/data/web_service/home/home_web_service.dart';
 import 'package:man_shop_app/presentation/authentication/login/bloc/login_cubit.dart';
 import 'package:man_shop_app/presentation/authentication/login/screens/login_screen.dart';
@@ -36,6 +38,10 @@ class AppRoutes {
   late HomeRepository homeRepository;
   late HomeWebService homeWebService;
 
+  //cart
+  late CartRepository cartRepository;
+  late CartWebService cartWebService;
+
   void initAppSettings() {
     // user data
     //userPrefs = UserPrefs();
@@ -56,6 +62,11 @@ class AppRoutes {
     homeWebService = HomeWebService();
     homeRepository = HomeRepository(
       homeWebService,
+    );
+    //Cart init
+    cartWebService = CartWebService();
+    cartRepository = CartRepository(
+      cartWebService,
     );
   }
 
@@ -104,7 +115,7 @@ class AppRoutes {
         return MaterialPageRoute(
           settings: settings,
           builder: (_) => BlocProvider(
-            create: (_) => CartCubit(),
+            create: (_) => CartCubit(cartRepository),
             child: CartScreen(),
           ),
         );

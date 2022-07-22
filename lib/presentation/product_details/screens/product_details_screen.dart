@@ -1,9 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/data/models/home/home_model.dart';
+import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
 import 'package:man_shop_app/presentation/product_details/bloc/product_details_cubit.dart';
 import 'package:man_shop_app/presentation/product_details/widgets/Product_details_items.dart';
 import 'package:man_shop_app/presentation/product_details/widgets/add_to_cart_button.dart';
@@ -15,12 +17,23 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final arg = ModalRoute.of(context)!.settings.arguments! as List;
+    final homeProducts = BlocProvider.of<HomeCubit>(context).homeModel.data.products;
     return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
       builder: (context, state) {
         final productDetailsCubit =
             BlocProvider.of<ProductDetailsCubit>(context);
         productDetailsCubit.products = arg[0] as Products;
-        productDetailsCubit.productIndex = arg[1] as int;
+        if(productDetailsCubit.products.images.isEmpty) {
+          productDetailsCubit.products.images.add(productDetailsCubit.products.image);
+        }
+        productDetailsCubit.productId = arg[1] as int;
+        for (int i = 0; i < homeProducts.length; i++) {
+          if(homeProducts[i].id == productDetailsCubit.productId) {
+            productDetailsCubit.productIndex = i;
+            log(productDetailsCubit.productIndex.toString());
+            break;
+          }
+        }
         return Scaffold(
           body: NotificationListener<ScrollNotification>(
             onNotification: (scrollNotification) {

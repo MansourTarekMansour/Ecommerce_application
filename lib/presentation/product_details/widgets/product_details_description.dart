@@ -45,8 +45,9 @@ class ProductDetailsDescription extends StatelessWidget {
                     },
                     child: Icon(
                       Icons.favorite,
-                      color:
-                          homeFavorites ? Colors.red : Colors.grey.withOpacity(0.5),
+                      color: homeFavorites
+                          ? Colors.red
+                          : Colors.grey.withOpacity(0.5),
                       size: 35,
                     ),
                   ),

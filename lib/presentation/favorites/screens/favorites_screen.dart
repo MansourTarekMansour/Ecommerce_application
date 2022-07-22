@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/presentation/favorites/bloc/favorites_cubit.dart';
-import 'package:man_shop_app/presentation/favorites/widgets/favorite_products_widget.dart';
+import 'package:man_shop_app/shared/components/products_widget.dart';
 import 'package:man_shop_app/shared/components/smart_refresh.dart';
 
 class FavoritesScreen extends StatelessWidget {
@@ -34,8 +34,9 @@ class FavoritesScreen extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.only(top: 70.0),
-                        child: FavoriteProductsWidget(
-                          products: favoritesCubit.favoritesModel.data,
+                        child: ProductsWidget(
+                          products: favoritesCubit.products,
+                          isFavorite: true,
                         ),
                       ),
                     ),

@@ -82,8 +82,8 @@ class Products {
         image: json['image'],
         name: json['name'],
         description: json['description'],
-        images: List.castFrom<dynamic, String>(json['images']),
-        inFavorites: json['in_favorites'],
-        inCart: json['in_cart'],
+        images: List.castFrom<dynamic, String>(json['images'] ?? []),
+        inFavorites: json['in_favorites'] ?? true,
+        inCart: json['in_cart'] ?? false,
       );
 }
