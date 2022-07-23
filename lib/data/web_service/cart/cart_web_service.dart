@@ -22,7 +22,7 @@ class CartWebService{
     final data = json.decode(response.body) as Map<String, dynamic>;
     log('getCartData  ****************: ${data.toString()}');
     if (data['status'] == true) {
-      return data;
+      return data['data'];
     } else {
       throw getErrorMessage(data);
     }

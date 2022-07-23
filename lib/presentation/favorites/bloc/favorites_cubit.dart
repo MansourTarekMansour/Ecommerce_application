@@ -42,7 +42,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
   Future<void> onRefresh() async {
     emit(FavoritesLoading());
-
+    products.clear();
     await getFavorites();
     refreshController.refreshCompleted();
   }

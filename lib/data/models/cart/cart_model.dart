@@ -32,7 +32,7 @@ class CartItems {
     required this.product,
   });
   late final int id;
-  late final int quantity;
+  late int quantity;
   late final Products product;
 
   CartItems.fromJson(Map<String, dynamic> json){
