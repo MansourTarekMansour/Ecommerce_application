@@ -15,14 +15,15 @@ class CartCubit extends Cubit<CartState> {
   CartRepository cartRepository;
   late List<Products> products = [];
   final refreshController = RefreshController();
+  int popupMenuValue = 1;
 
   Future<void> getCartData() async {
     emit(CartLoadingState());
     try {
       cartModel = await cartRepository.getCartData();
-      for(int i = 0; i < cartModel.cartItems.length; i++){
-        products.add(cartModel.cartItems
-        [i].product);
+      log('mansour ${cartModel.cartItems}');
+      for (int i = 0; i < cartModel.cartItems.length; i++) {
+        products.add(cartModel.cartItems[i].product);
       }
       emit(CartSuccessState());
     } catch (error, s) {
@@ -33,8 +34,13 @@ class CartCubit extends Cubit<CartState> {
 
   Future<void> onRefresh() async {
     emit(CartLoadingState());
+    products.clear();
     await getCartData();
     refreshController.refreshCompleted();
   }
-}
 
+  void setPopupMenuValue(int value, int index) {
+    cartModel.cartItems[index].quantity = value;
+    emit(CartSuccessState());
+  }
+}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/presentation/cart/bloc/cart_cubit.dart';
+import 'package:man_shop_app/presentation/cart/widgets/cart_products.dart';
 import 'package:man_shop_app/shared/components/products_widget.dart';
 import 'package:man_shop_app/shared/components/smart_refresh.dart';
 
@@ -11,13 +12,13 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartCubit = BlocProvider.of<CartCubit>(context)..getCartData();
-
     return BlocConsumer<CartCubit, CartState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return Scaffold(
-          body: SafeArea(
-            child: state is CartLoadingState
+        return SafeArea(
+          bottom: false,
+          child: Scaffold(
+            body: state is CartLoadingState
                 ? const Center(
                     child: CircularProgressIndicator(
                       strokeWidth: 4,
@@ -36,9 +37,7 @@ class CartScreen extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.only(top: 70.0),
-                        child: ProductsWidget(
-                          products: cartCubit.products,
-                        ),
+                        child: CartProductsWidget(),
                       ),
                     ),
                   ),

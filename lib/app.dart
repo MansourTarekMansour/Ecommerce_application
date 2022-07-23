@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
                 FavoritesCubit(FavoritesRepository(FavoritesWebService()))..getFavorites()),
         BlocProvider(
             create: (context) =>
-            CartCubit(CartRepository(CartWebService()))..getCartData()),
+            CartCubit(CartRepository(CartWebService()))),
 
       ],
       child: MaterialApp(
