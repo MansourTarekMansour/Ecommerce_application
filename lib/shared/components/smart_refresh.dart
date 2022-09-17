@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class SmartRefresh extends StatelessWidget {
-  const SmartRefresh({
+   SmartRefresh({
     this.child,
     this.footerEnabled,
     this.onLoading,
@@ -12,6 +12,7 @@ class SmartRefresh extends StatelessWidget {
     this.idleIconColor,
     this.controller,
     this.listLength,
+    required this.topHeight,
   });
 
   final Widget? child;
@@ -22,6 +23,7 @@ class SmartRefresh extends StatelessWidget {
   final Color? waterDropColor;
   final Color? idleIconColor;
   final int? listLength;
+  double topHeight = 70;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class SmartRefresh extends StatelessWidget {
       header: WaterDropHeader(
         waterDropColor: waterDropColor ?? Theme.of(context).primaryColor,
         idleIcon: Padding(
-          padding: const EdgeInsets.only(top: 70.0),
+          padding: EdgeInsets.only(top: topHeight),
           child: Icon(
             Icons.autorenew,
             size: 25,

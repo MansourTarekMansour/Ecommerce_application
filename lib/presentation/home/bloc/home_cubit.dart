@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:man_shop_app/data/models/cart/cart_model.dart';
 import 'package:man_shop_app/data/models/home/home_model.dart';
+import 'package:man_shop_app/data/repositories/cart/cart_repository.dart';
 import 'package:man_shop_app/data/repositories/home/home_repository.dart';
 import 'package:man_shop_app/presentation/home/bloc/home_states.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -11,8 +13,11 @@ class HomeCubit extends Cubit<HomeStates> {
   HomeCubit(this.homeRepository) : super(HomeInitialState());
 
   late HomeModel homeModel;
+
   //late CategoriesModel categoriesModel;
   late HomeRepository homeRepository;
+
+
   int indicatorIndex = 0;
   final refreshController = RefreshController();
 
@@ -69,6 +74,16 @@ class HomeCubit extends Cubit<HomeStates> {
         }
       }
       log('isFavorites error', error: error, stackTrace: s);
+      emit(HomeErrorState(error.toString()));
+    }
+  }
+
+  Future<void> inCart({required int id, required int inCartIndex}) async {
+    try {
+      homeModel.data.products[inCartIndex].inCart = await homeRepository.inCart(id);
+      emit(HomeSuccessState());
+    } catch (error, s) {
+      log('HomeInCart error', error: error, stackTrace: s);
       emit(HomeErrorState(error.toString()));
     }
   }

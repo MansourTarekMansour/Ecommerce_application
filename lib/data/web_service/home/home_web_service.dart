@@ -69,4 +69,27 @@ class HomeWebService{
       throw getErrorMessage(data);
     }
   }
+
+  Future<bool> inCart(int id) async {
+    const String url = AppStrings.url + 'carts';
+    final headers = {
+      "Authorization":  AppConst.token,
+      'lang': 'en',
+      'Content-Type': 'application/json; charset=UTF-8',
+    };
+    final http.Response response = await http.post(
+      Uri.parse(url),
+      headers: headers,
+      body: jsonEncode({
+        'product_id': id,
+      }),
+    );
+    final data = json.decode(response.body) as Map<String, dynamic>;
+    log('inCart  ****************: ${data.toString()}');
+    if (data['status'] == true) {
+      return data['message'] == 'Added Successfully'? true : false;
+    } else {
+      throw getErrorMessage(data);
+    }
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
+import 'package:man_shop_app/presentation/cart/bloc/cart_cubit.dart';
 import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
 import 'package:man_shop_app/presentation/home/bloc/home_states.dart';
 import 'package:man_shop_app/presentation/home/widgets/banner_widget.dart';
@@ -28,6 +29,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   )
                 : SmartRefresh(
+                    topHeight: 70,
                     footerEnabled: true,
                     listLength: homeCubit.homeModel.data.products.length,
                     controller: homeCubit.refreshController,

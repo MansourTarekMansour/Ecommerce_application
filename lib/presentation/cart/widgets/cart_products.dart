@@ -267,6 +267,20 @@ class CartProductsWidget extends StatelessWidget {
                                             ),
                                           ),
                                         ),
+                                        const Align(
+                                          alignment: Alignment.topRight,
+                                          child:  Padding(
+                                            padding: EdgeInsets.only(top: 6.0),
+                                            child: Text(
+                                              ' EGP ',
+                                              style: TextStyle(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.blue,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),

@@ -72,7 +72,7 @@ class Products {
   final String description;
   List<String> images;
   bool inFavorites;
-  final bool inCart;
+  late bool inCart;
 
   factory Products.fromJson(Map<String, dynamic> json) => Products(
         id: json['id'],
