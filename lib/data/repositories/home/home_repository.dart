@@ -20,4 +20,9 @@ class HomeRepository{
     final data = await homeWebService.isFavorite(id);
     return data as String;
   }
+
+  Future<bool> inCart(int id) async {
+    final data = await homeWebService.inCart(id);
+    return data;
+  }
 }
