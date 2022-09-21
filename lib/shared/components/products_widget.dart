@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -8,10 +9,11 @@ import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/data/models/home/home_model.dart';
 import 'package:man_shop_app/presentation/favorites/bloc/favorites_cubit.dart';
 import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ProductsWidget extends StatelessWidget {
   final List<Products> products;
-  final isFavorite;
+  final bool isFavorite;
 
   ProductsWidget({required this.products, this.isFavorite = false, Key? key})
       : super(key: key);
@@ -38,7 +40,7 @@ class ProductsWidget extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator?.of(context).pushNamed(
+                    Navigator.of(context).pushNamed(
                       Routes.productDetailsRoute,
                       arguments: [
                         products[index],
@@ -64,16 +66,40 @@ class ProductsWidget extends StatelessWidget {
                             top: 0,
                             left: 0,
                             right: 0,
-                            child: ClipRRect(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15),
-                              ),
-                              child: Image.network(
-                                products[index].image,
-                                fit: BoxFit.contain,
-                                height: 150,
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: ClipRRect(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15),
+                                ),
+                                child:
+                                CachedNetworkImage(
+                                  imageUrl: products[index].image,
+                                  imageBuilder: (context, imageProvider) => Container(
+                                    height: 150,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                  placeholder: (context, url) => Shimmer.fromColors(
+                                    baseColor: Colors.grey[100]!,
+                                    highlightColor: Colors.grey[200]!,
+                                    child: Image.asset(
+                                        'assets/images/almansoury_text.png'),
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                                ),
+                                // Image.network(
+                                //   products[index].image,
+                                //   fit: BoxFit.contain,
+                                //   height: 150,
+                                // ),
                               ),
                             ),
                           ),

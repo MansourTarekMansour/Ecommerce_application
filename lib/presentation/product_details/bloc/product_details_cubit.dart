@@ -17,6 +17,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   int productId = -1;
   int productIndex = 0;
 
+
   void changeImgSliderVisibility(double height) {
     if (height >= 319) {
       imgSliderHeight = 0;

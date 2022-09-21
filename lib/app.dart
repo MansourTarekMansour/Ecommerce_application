@@ -36,37 +36,36 @@ class MyApp extends StatelessWidget {
       {Key? key,
       required this.appRoutes,
       required this.onBoarding,
-      required this.token})
+      required this.token,})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
       statusBarColor: Colors.black,
-    ));
+    ),);
     return MultiBlocProvider(
       providers: [
         BlocProvider(
             create: (context) => LoginCubit(
                   LoginRepository(LoginWebService()),
-                )),
+                ),),
         BlocProvider(
             create: (context) =>
-                RegisterCubit(RegisterRepository(RegisterWebService()))),
+                RegisterCubit(RegisterRepository(RegisterWebService())),),
         BlocProvider(
             create: (context) =>
-                LogoutCubit(LogoutRepository(LogoutWebService()))),
+                LogoutCubit(LogoutRepository(LogoutWebService())),),
         BlocProvider(create: (context) => BottomNavigationBarCubit()),
         BlocProvider(
             create: (context) =>
-                HomeCubit(HomeRepository(HomeWebService()))..getHomeData()),
+                HomeCubit(HomeRepository(HomeWebService()))..getHomeData(),),
         BlocProvider(
             create: (context) =>
-                FavoritesCubit(FavoritesRepository(FavoritesWebService()))..onRefresh()),
+                FavoritesCubit(FavoritesRepository(FavoritesWebService()))..onRefresh(),),
         BlocProvider(
             create: (context) =>
-            CartCubit(CartRepository(CartWebService()))..getCartData()),
-
+            CartCubit(CartRepository(CartWebService()))..getCartData(),),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

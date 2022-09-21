@@ -55,15 +55,18 @@ class HomeCubit extends Cubit<HomeStates> {
     await getHomeData();
     refreshController.refreshCompleted();
   }
-
+  int productIndex({required int id}){
+    for(int index = 0; index < homeModel.data.products.length; index++) {
+      if (homeModel.data.products[index].id == id) {
+        return index;
+      }
+    }
+    return -1;
+  }
   Future<void> isFavorites({required int id}) async {
     try {
-      for(int i = 0; i < homeModel.data.products.length; i++) {
-        if (homeModel.data.products[i].id == id) {
-          homeModel.data.products[i].inFavorites = !homeModel.data.products[i].inFavorites;
-          break;
-        }
-      }
+      int index = productIndex(id: id);
+      homeModel.data.products[index].inFavorites = !homeModel.data.products[index].inFavorites;
       String message = await homeRepository.isFavorite(id);
       emit(HomeSuccessState());
     } catch (error, s) {
@@ -78,9 +81,10 @@ class HomeCubit extends Cubit<HomeStates> {
     }
   }
 
-  Future<void> inCart({required int id, required int inCartIndex}) async {
+  Future<void> inCart({required int id}) async {
     try {
-      homeModel.data.products[inCartIndex].inCart = await homeRepository.inCart(id);
+      int index = productIndex(id: id);
+      homeModel.data.products[index].inCart = await homeRepository.inCart(id);
       emit(HomeSuccessState());
     } catch (error, s) {
       log('HomeInCart error', error: error, stackTrace: s);

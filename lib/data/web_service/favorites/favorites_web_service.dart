@@ -8,7 +8,7 @@ import 'package:man_shop_app/shared/utils/server_utils.dart';
 
 class FavoritesWebService{
   Future<Map<String, dynamic>> getFavorites() async {
-    const String url = AppStrings.url + 'favorites';
+    const String url = '${AppStrings.url}favorites';
     final headers = {
       "Authorization":  AppConst.token,
       'lang': 'en',

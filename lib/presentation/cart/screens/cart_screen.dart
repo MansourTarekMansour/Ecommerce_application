@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/presentation/cart/bloc/cart_cubit.dart';
 import 'package:man_shop_app/presentation/cart/widgets/cart_products.dart';
+import 'package:man_shop_app/presentation/cart/widgets/paymen_card.dart';
 import 'package:man_shop_app/shared/components/smart_refresh.dart';
 
 class CartScreen extends StatelessWidget {
@@ -11,7 +12,7 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartCubit = BlocProvider.of<CartCubit>(context)..onRefresh();
+    final cartCubit = BlocProvider.of<CartCubit>(context)..getCartData();
     return BlocConsumer<CartCubit, CartState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -60,27 +61,38 @@ class CartScreen extends StatelessWidget {
                       color: Colors.blue,
                     ),
                   )
-                : SmartRefresh(
-                    topHeight: 0,
-                    footerEnabled: true,
-                    listLength: cartCubit.cartModel.cartItems.length,
-                    controller: cartCubit.refreshController,
-                    onRefresh: () async {
-                      await cartCubit.onRefresh.call();
-                    },
-                    idleIconColor: AppColors.mainColor,
-                    waterDropColor: Colors.white,
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 20, bottom: 70.0),
-                        child: Stack(
-                          children: [
-                            CartProductsWidget(),
-                          ],
-                        ),
+                : state is CartErrorState
+                    ? Center(
+                        child: Text(state.error),
+                      )
+                    : Stack(
+                        children: [
+                          SmartRefresh(
+                            topHeight: 0,
+                            footerEnabled: true,
+                            listLength: cartCubit.cartModel.cartItems.length,
+                            controller: cartCubit.refreshController,
+                            onRefresh: () async {
+                              await cartCubit.onRefresh.call();
+                            },
+                            idleIconColor: AppColors.mainColor,
+                            waterDropColor: Colors.white,
+                            child: SingleChildScrollView(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 20, bottom: 70.0),
+                                child: CartProductsWidget(),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            child: PaymentCard(),
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
           ),
         );
       },

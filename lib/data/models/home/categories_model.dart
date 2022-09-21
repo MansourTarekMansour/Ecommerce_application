@@ -28,7 +28,7 @@ class CategoriesModel {
 
   CategoriesModel.fromJson(Map<String, dynamic> json){
     currentPage = json['current_page'];
-    data = List.from(json['data']).map((e)=>Data.fromJson(e)).toList();
+    data = List.from(json['data'] as List).map((e)=>Data.fromJson(e as Map<String, dynamic>)).toList();
     firstPageUrl = json['first_page_url'];
     from = json['from'];
     lastPage = json['last_page'];
@@ -70,9 +70,9 @@ class Data {
   late final String image;
 
   Data.fromJson(Map<String, dynamic> json){
-    id = json['id'];
-    name = json['name'];
-    image = json['image'];
+    id = json['id'] as int;
+    name = json['name'] as String;
+    image = json['image'] as String;
   }
 
   Map<String, dynamic> toJson() {

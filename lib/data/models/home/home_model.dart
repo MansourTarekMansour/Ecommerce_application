@@ -52,6 +52,7 @@ class Banners {
 class Products {
   Products({
     required this.id,
+    this.itemCount = 1,
     required this.price,
     required this.oldPrice,
     required this.discount,
@@ -64,6 +65,7 @@ class Products {
   });
 
   final int id;
+  int itemCount;
   final dynamic price;
   final dynamic oldPrice;
   final dynamic discount;

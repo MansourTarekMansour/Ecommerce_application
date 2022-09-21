@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "157580330197-1uepjjcbecqvoj5foa04voem550t9k32.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.man_shop_app",
+            "certificate_hash": "079de0713c85dcb2ec38b63b12ddbd2ffa2ea3eb"
+          }
+        },
+        {
           "client_id": "157580330197-41fu2bd55k5qb4qdho1ev8siqgd99ic3.apps.googleusercontent.com",
           "client_type": 3
         }

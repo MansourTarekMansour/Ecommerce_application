@@ -16,10 +16,7 @@ class HomeRepository{
     return CategoriesModel.fromJson(data['data']);
   }
 
-  Future<String> isFavorite(int id) async {
-    final data = await homeWebService.isFavorite(id);
-    return data as String;
-  }
+  Future<String> isFavorite(int id) async => await homeWebService.isFavorite(id);
 
   Future<bool> inCart(int id) async {
     final data = await homeWebService.inCart(id);

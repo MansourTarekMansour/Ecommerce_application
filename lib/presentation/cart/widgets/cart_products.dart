@@ -1,12 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/config/routes/routes.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/presentation/cart/bloc/cart_cubit.dart';
+import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
+import 'package:man_shop_app/shared/components/delete_alert.dart';
+import 'package:shimmer/shimmer.dart';
 
 class CartProductsWidget extends StatelessWidget {
-  CartProductsWidget({Key? key})
-      : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +26,10 @@ class CartProductsWidget extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
-          final product = cartCubit.cartModel.cartItems[index].product;
+            final product = cartCubit.cartModel.cartItems[index].product;
             return GestureDetector(
               onTap: () {
-                Navigator?.of(context).pushNamed(
+                Navigator.of(context).pushNamed(
                   Routes.productDetailsRoute,
                   arguments: [
                     product,
@@ -42,8 +45,8 @@ class CartProductsWidget extends StatelessWidget {
                   borderRadius: const BorderRadius.all(
                     Radius.circular(15),
                   ),
-                  border: Border.all(
-                      color: AppColors.mainColor.withOpacity(0.2)),
+                  border:
+                      Border.all(color: AppColors.mainColor.withOpacity(0.2)),
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,10 +60,67 @@ class CartProductsWidget extends StatelessWidget {
                           topLeft: Radius.circular(15),
                           topRight: Radius.circular(15),
                         ),
-                        child: Image.network(
-                          product.image,
-                          fit: BoxFit.contain,
-                          height: 150,
+                        child: Stack(
+                          children: [
+                            CachedNetworkImage(
+                              imageUrl: product.image,
+                              imageBuilder: (context, imageProvider) => Container(
+                                height: 150,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: imageProvider,
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                              placeholder: (context, url) => Shimmer.fromColors(
+                                baseColor: Colors.grey[100]!,
+                                highlightColor: Colors.grey[200]!,
+                                child: Image.asset(
+                                    'assets/images/almansoury_text.png'),
+                              ),
+                              errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                            ),
+                            // Image.network(
+                            //   product.image,
+                            //   fit: BoxFit.contain,
+                            //   height: 150,
+                            // ),
+                            Positioned(
+                              top: 0,
+                              left: 0,
+                              child: Container(
+                                height: 35,
+                                width: 35,
+                                color: Colors.red.withOpacity(0.75),
+                                child: IconButton(
+                                  onPressed: () => showDialog(
+                                    context: context,
+                                    builder: (c) => DeleteAlert.svg(
+                                      svgPath:
+                                          'assets/icons/warning_alert_filled.svg',
+                                      title: 'Are you sure',
+                                      content: 'You want to delete this item',
+                                      onPressed: () async {
+                                        BlocProvider.of<HomeCubit>(context)
+                                            .inCart(id: product.id)
+                                            .then((value) =>
+                                                BlocProvider.of<CartCubit>(
+                                                        context)
+                                                    .onRefresh());
+                                      },
+                                    ),
+                                  ),
+                                  icon: const Icon(
+                                    Icons.remove_circle_outline_sharp,
+                                    size: 20,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -70,7 +130,9 @@ class CartProductsWidget extends StatelessWidget {
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15.0).copyWith(top: 15.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 15.0)
+                                    .copyWith(top: 15.0),
                             child: Text(
                               product.name,
                               maxLines: 2,
@@ -81,7 +143,9 @@ class CartProductsWidget extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15.0).copyWith(top: 5.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 15.0)
+                                    .copyWith(top: 5.0),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -109,17 +173,19 @@ class CartProductsWidget extends StatelessWidget {
                             height: 70,
                             decoration: BoxDecoration(
                               color: Colors.grey[200],
-                              borderRadius:
-                              const BorderRadiusDirectional.all(Radius.circular(15)),
+                              borderRadius: const BorderRadiusDirectional.all(
+                                  Radius.circular(15)),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(10.0).copyWith(left: 15),
+                              padding:
+                                  const EdgeInsets.all(10.0).copyWith(left: 15),
                               child: Column(
                                 children: [
                                   SizedBox(
                                     height: 20,
                                     child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         const SizedBox(width: 2),
                                         Text(
@@ -145,7 +211,8 @@ class CartProductsWidget extends StatelessWidget {
                                   SizedBox(
                                     height: 30,
                                     child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Container(
                                           width: 60,
@@ -153,7 +220,8 @@ class CartProductsWidget extends StatelessWidget {
                                           decoration: BoxDecoration(
                                             color: Colors.grey.withOpacity(0.4),
                                             borderRadius:
-                                            const BorderRadiusDirectional.all(Radius.circular(15)),
+                                                const BorderRadiusDirectional
+                                                    .all(Radius.circular(15)),
                                           ),
                                           child: PopupMenuButton(
                                             offset: const Offset(0, 40),
@@ -163,7 +231,8 @@ class CartProductsWidget extends StatelessWidget {
                                               maxWidth: 70,
                                             ),
                                             icon: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Icon(
                                                   Icons.arrow_drop_down,
@@ -172,13 +241,21 @@ class CartProductsWidget extends StatelessWidget {
                                                 ),
                                                 const SizedBox(width: 0),
                                                 Padding(
-                                                  padding: const EdgeInsets.only(right: 15.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 15.0),
                                                   child: Text(
-                                                    cartCubit.cartModel.cartItems[index].quantity.toString(),
+                                                    cartCubit
+                                                        .cartModel
+                                                        .cartItems[index]
+                                                        .quantity
+                                                        .toString(),
                                                     style: TextStyle(
                                                       fontSize: 15,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: AppColors.mainColor,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color:
+                                                          AppColors.mainColor,
                                                     ),
                                                   ),
                                                 ),
@@ -190,68 +267,74 @@ class CartProductsWidget extends StatelessWidget {
                                             itemBuilder: (ctx) => [
                                               PopupMenuItem(
                                                 onTap: () {
-                                                  cartCubit.setPopupMenuValue(1, index);
+                                                  cartCubit.setPopupMenuValue(
+                                                      1, index);
+
                                                 },
                                                 child: const Align(
                                                     child: Text(
-                                                      '1',
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.black,
-                                                      ),
-                                                    )),
+                                                  '1',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black,
+                                                  ),
+                                                )),
                                               ),
                                               PopupMenuItem(
                                                 onTap: () {
-                                                  cartCubit.setPopupMenuValue(2, index);
+                                                  cartCubit.setPopupMenuValue(
+                                                      2, index);
                                                 },
                                                 child: const Align(
                                                     child: Text(
-                                                      '2',
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.black,
-                                                      ),
-                                                    )),
+                                                  '2',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black,
+                                                  ),
+                                                )),
                                               ),
                                               PopupMenuItem(
                                                 onTap: () {
-                                                  cartCubit.setPopupMenuValue(3, index);
+                                                  cartCubit.setPopupMenuValue(
+                                                      3, index);
                                                 },
                                                 child: const Align(
                                                     child: Text(
-                                                      '3',
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.black,
-                                                      ),
-                                                    )),
+                                                  '3',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black,
+                                                  ),
+                                                )),
                                               ),
                                               PopupMenuItem(
                                                 onTap: () {
-                                                  cartCubit.setPopupMenuValue(4, index);
+                                                  cartCubit.setPopupMenuValue(
+                                                      4, index);
                                                 },
                                                 child: const Align(
                                                     child: Text(
-                                                      '4',
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.black,
-                                                      ),
-                                                    )),
+                                                  '4',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black,
+                                                  ),
+                                                )),
                                               ),
                                               PopupMenuItem(
                                                 onTap: () {
-                                                  cartCubit.setPopupMenuValue(5, index);
+                                                  cartCubit.setPopupMenuValue(
+                                                      5, index);
                                                 },
                                                 child: const Align(
                                                     child: Text(
-                                                      '5',
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.black,
-                                                      ),
-                                                    )),
+                                                  '5',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black,
+                                                  ),
+                                                )),
                                               ),
                                             ],
                                           ),
@@ -269,7 +352,7 @@ class CartProductsWidget extends StatelessWidget {
                                         ),
                                         const Align(
                                           alignment: Alignment.topRight,
-                                          child:  Padding(
+                                          child: Padding(
                                             padding: EdgeInsets.only(top: 6.0),
                                             child: Text(
                                               ' EGP ',

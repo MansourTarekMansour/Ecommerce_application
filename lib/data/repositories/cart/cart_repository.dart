@@ -16,4 +16,9 @@ class CartRepository{
     final data = await cartWebService.isCart(id);
     return data;
   }
+
+  Future<String> itemAmount(int amount, int id) async {
+    final data = await cartWebService.itemAmount(amount, id);
+    return data;
+  }
 }

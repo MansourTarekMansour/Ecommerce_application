@@ -151,7 +151,7 @@ class AddToCartButton extends StatelessWidget {
                       onPressed: () {
                         BlocProvider.of<HomeCubit>(context).inCart(
                             id: productCubit.productId,
-                            inCartIndex: productCubit.productIndex);
+                        );
                       },
                       fontSize: inCart ? 16 : 18,
                       fontWeight: FontWeight.bold,

@@ -24,7 +24,7 @@ class FavoritesScreen extends StatelessWidget {
                   )
                 : SmartRefresh(
                     topHeight: 70,
-                    footerEnabled: true,
+                    footerEnabled: false,
                     listLength: favoritesCubit.favoritesModel.data.length,
                     controller: favoritesCubit.refreshController,
                     onRefresh: () async {

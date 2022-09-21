@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
                   )
                 : SmartRefresh(
                     topHeight: 70,
-                    footerEnabled: true,
+                    footerEnabled: false,
                     listLength: homeCubit.homeModel.data.products.length,
                     controller: homeCubit.refreshController,
                     onRefresh: () async {
