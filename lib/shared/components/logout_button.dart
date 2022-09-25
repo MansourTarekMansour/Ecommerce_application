@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/presentation/authentication/login/screens/login_screen.dart';
 import 'package:man_shop_app/presentation/authentication/logout/bloc/logout_cubit.dart';
+import 'package:man_shop_app/presentation/bottom_navigation_bar/bloc/cubit.dart';
 import 'package:man_shop_app/shared/components/custom_button.dart';
 import 'package:man_shop_app/shared/components/navigation.dart';
 import 'package:man_shop_app/shared/components/toast.dart';
@@ -27,7 +28,10 @@ class LogoutButton extends StatelessWidget {
           condition: state is! LogoutLoadingState,
           builder: (context) => CustomButton(
             text: 'Logout',
-            onPressed: () => logoutCubit.userLogout(),
+            onPressed: () {
+              BlocProvider.of<BottomNavigationBarCubit>(context).changeBottom(0);
+              logoutCubit.userLogout();
+            },
           ),
           fallback: (context) => Container(
             width: MediaQuery.of(context).size.width,

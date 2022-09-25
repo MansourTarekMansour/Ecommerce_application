@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:man_shop_app/shared/utils/server_utils.dart';
 
 class CartWebService{
-
   Future<Map<String, dynamic>> getCartData() async {
     const String url = AppStrings.url + 'carts';
     log('AppConst.token: '+AppConst.token);
@@ -28,7 +27,6 @@ class CartWebService{
       throw getErrorMessage(data);
     }
   }
-
 
   Future<String> isCart(int id) async {
     const String url = AppStrings.url + 'carts';
@@ -54,7 +52,7 @@ class CartWebService{
   }
 
   Future<String> itemAmount(int amount, int id) async {
-    final String url = AppStrings.url + 'arts/' + id.toString();
+    final String url = AppStrings.url + 'carts/' + id.toString();
     final headers = {
       "Authorization":  AppConst.token,
       'lang': 'en',

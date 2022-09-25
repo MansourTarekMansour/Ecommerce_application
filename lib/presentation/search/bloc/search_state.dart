@@ -1,6 +1,17 @@
 part of 'search_cubit.dart';
 
 @immutable
-abstract class SearchState {}
+abstract class SearchStates{}
 
-class SearchInitial extends SearchState {}
+class SearchInitialState extends SearchStates {}
+
+class SearchLoadingState extends SearchStates {}
+
+class SearchSuccessState extends SearchStates {}
+
+class SearchErrorState extends SearchStates {
+  final String error;
+  SearchErrorState(this.error);
+}
+
+

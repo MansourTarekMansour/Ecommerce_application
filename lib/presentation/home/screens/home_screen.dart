@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
-import 'package:man_shop_app/presentation/cart/bloc/cart_cubit.dart';
 import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
 import 'package:man_shop_app/presentation/home/bloc/home_states.dart';
 import 'package:man_shop_app/presentation/home/widgets/banner_widget.dart';
 import 'package:man_shop_app/presentation/home/widgets/categories_bar.dart';
+import 'package:man_shop_app/shared/components/custom_loading_indicator.dart';
 import 'package:man_shop_app/shared/components/products_widget.dart';
 import 'package:man_shop_app/shared/components/smart_refresh.dart';
 
@@ -22,12 +23,7 @@ class HomeScreen extends StatelessWidget {
           body: SafeArea(
             child: state is HomeGetDataLoadingState ||
                     state is HomeGatCategoriesLoadingState
-                ? const Center(
-                    child: CircularProgressIndicator(
-                      strokeWidth: 4,
-                      color: Colors.blue,
-                    ),
-                  )
+                ? const CustomLoadingIndicator()
                 : SmartRefresh(
                     topHeight: 70,
                     footerEnabled: false,

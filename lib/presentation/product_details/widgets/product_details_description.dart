@@ -73,6 +73,7 @@ class ProductDetailsDescription extends StatelessWidget {
                       color: AppColors.mainColor,
                     ),
                   ),
+                  if(productCubit.products.oldPrice != null)
                   if (productCubit.products.oldPrice >
                       productCubit.products.price)
                     Row(

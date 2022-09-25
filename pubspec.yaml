@@ -58,6 +58,7 @@ dependencies:
   shimmer: ^2.0.0
   blurrycontainer: 1.0.2
   pull_to_refresh: 2.0.0
+  loading_indicator: ^3.1.0
 
 dev_dependencies:
   flutter_test:

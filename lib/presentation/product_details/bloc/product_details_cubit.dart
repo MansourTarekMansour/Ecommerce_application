@@ -15,6 +15,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   double imgSliderHeight = 319;
   final double imgSliderConstHeight = 319;
   int productId = -1;
+  int itemAmountId = -1;
   int productIndex = 0;
 
 

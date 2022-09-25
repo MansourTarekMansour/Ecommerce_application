@@ -7,8 +7,10 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:man_shop_app/config/routes/routes.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/data/models/home/home_model.dart';
+import 'package:man_shop_app/presentation/cart/bloc/cart_cubit.dart';
 import 'package:man_shop_app/presentation/favorites/bloc/favorites_cubit.dart';
 import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
+import 'package:man_shop_app/presentation/product_details/bloc/product_details_cubit.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ProductsWidget extends StatelessWidget {
@@ -21,6 +23,7 @@ class ProductsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final favoritesCubit = BlocProvider.of<FavoritesCubit>(context);
+
     return Padding(
       padding: const EdgeInsets.only(
         left: 15.0,

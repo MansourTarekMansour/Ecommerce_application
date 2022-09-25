@@ -17,18 +17,20 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final arg = ModalRoute.of(context)!.settings.arguments! as List;
-    final homeProducts = BlocProvider.of<HomeCubit>(context).homeModel.data.products;
+    final homeProducts =
+        BlocProvider.of<HomeCubit>(context).homeModel.data.products;
     return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
       builder: (context, state) {
         final productDetailsCubit =
             BlocProvider.of<ProductDetailsCubit>(context);
         productDetailsCubit.products = arg[0] as Products;
-        if(productDetailsCubit.products.images.isEmpty) {
-          productDetailsCubit.products.images.add(productDetailsCubit.products.image);
-        }
         productDetailsCubit.productId = arg[1] as int;
+        if (productDetailsCubit.products.images.isEmpty) {
+          productDetailsCubit.products.images
+              .add(productDetailsCubit.products.image);
+        }
         for (int i = 0; i < homeProducts.length; i++) {
-          if(homeProducts[i].id == productDetailsCubit.productId) {
+          if (homeProducts[i].id == productDetailsCubit.productId) {
             productDetailsCubit.productIndex = i;
             log(productDetailsCubit.productIndex.toString());
             break;
@@ -37,7 +39,10 @@ class ProductDetailsScreen extends StatelessWidget {
         return Scaffold(
           body: NotificationListener<ScrollNotification>(
             onNotification: (scrollNotification) {
-              if (scrollNotification.metrics.axisDirection == AxisDirection.down || scrollNotification.metrics.axisDirection == AxisDirection.up){
+              if (scrollNotification.metrics.axisDirection ==
+                      AxisDirection.down ||
+                  scrollNotification.metrics.axisDirection ==
+                      AxisDirection.up) {
                 productDetailsCubit.changeImgSliderVisibility(
                     scrollNotification.metrics.pixels.toDouble());
               }
@@ -61,8 +66,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     left: 0,
                     child: PhotoSlider(productDetailsCubit.products.images),
                   ),
-                  if (productDetailsCubit.imgSliderHeight <=
-                      100)
+                  if (productDetailsCubit.imgSliderHeight <= 100)
                     Container(
                       height: 100,
                       decoration: const BoxDecoration(
@@ -97,7 +101,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                   Align(
+                  Align(
                     alignment: Alignment.bottomCenter,
                     child: AddToCartButton(),
                   )

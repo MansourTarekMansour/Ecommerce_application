@@ -5,6 +5,8 @@ import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/presentation/cart/bloc/cart_cubit.dart';
 import 'package:man_shop_app/presentation/cart/widgets/cart_products.dart';
 import 'package:man_shop_app/presentation/cart/widgets/paymen_card.dart';
+import 'package:man_shop_app/shared/components/custom_button.dart';
+import 'package:man_shop_app/shared/components/custom_loading_indicator.dart';
 import 'package:man_shop_app/shared/components/smart_refresh.dart';
 
 class CartScreen extends StatelessWidget {
@@ -55,44 +57,116 @@ class CartScreen extends StatelessWidget {
               ),
             ),
             body: state is CartLoadingState
-                ? const Center(
-                    child: CircularProgressIndicator(
-                      strokeWidth: 4,
-                      color: Colors.blue,
-                    ),
-                  )
+                ? const CustomLoadingIndicator()
                 : state is CartErrorState
                     ? Center(
                         child: Text(state.error),
                       )
-                    : Stack(
-                        children: [
-                          SmartRefresh(
-                            topHeight: 0,
-                            footerEnabled: true,
-                            listLength: cartCubit.cartModel.cartItems.length,
-                            controller: cartCubit.refreshController,
-                            onRefresh: () async {
-                              await cartCubit.onRefresh.call();
-                            },
-                            idleIconColor: AppColors.mainColor,
-                            waterDropColor: Colors.white,
-                            child: SingleChildScrollView(
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 20, bottom: 70.0),
-                                child: CartProductsWidget(),
+                    : cartCubit.products.isEmpty
+                        ? Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.center,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(bottom: 50.0),
+                                  child: SvgPicture.asset(
+                                    "assets/images/empty_cart_2.svg",
+                                    width: 800,
+                                    height: 800,
+                                    //color: AppColors.mainColor,
+                                  ),
+                                ),
                               ),
-                            ),
+                              Positioned(
+                                bottom: 0,
+                                right: 0,
+                                left: 0,
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 150,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(25),
+                                      topRight: Radius.circular(25),
+                                    ),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Text(
+                                        'EMPTY CART',
+                                        style: TextStyle(
+                                          fontSize: 28,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.mainColor,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 5),
+                                      const Text(
+                                        'back to',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.black45,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.all(10.0).copyWith(
+                                          top: 5,
+                                        ),
+                                        child: CustomButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          text: 'HOME',
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.95,
+                                          buttonColor: AppColors.mainColor,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Stack(
+                            children: [
+                              SmartRefresh(
+                                topHeight: 0,
+                                footerEnabled: true,
+                                listLength:
+                                    cartCubit.cartModel.cartItems.length,
+                                controller: cartCubit.refreshController,
+                                onRefresh: () async {
+                                  await cartCubit.onRefresh.call();
+                                },
+                                idleIconColor: AppColors.mainColor,
+                                waterDropColor: Colors.white,
+                                child: SingleChildScrollView(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 20, bottom: 70.0),
+                                    child: CartProductsWidget(),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                child: PaymentCard(),
+                              ),
+                            ],
                           ),
-                          Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            child: PaymentCard(),
-                          ),
-                        ],
-                      ),
           ),
         );
       },

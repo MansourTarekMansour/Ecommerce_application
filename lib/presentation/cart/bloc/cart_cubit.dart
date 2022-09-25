@@ -37,12 +37,23 @@ class CartCubit extends Cubit<CartState> {
   Future<void> upgradeItemAmount({required int amount, required int id}) async {
     emit(CartLoadingState());
     try {
-      final String message = await cartRepository.itemAmount(amount, id);
+      await cartRepository.itemAmount(amount, id);
     } catch (error, s) {
       log('upgradeItemAmount error', error: error, stackTrace: s);
       emit(CartErrorState(error.toString()));
     }
   }
+
+  Future<void> setOrder({required int amount, required int id}) async {
+    emit(CartLoadingState());
+    try {
+      await cartRepository.itemAmount(amount, id);
+    } catch (error, s) {
+      log('upgradeItemAmount error', error: error, stackTrace: s);
+      emit(CartErrorState(error.toString()));
+    }
+  }
+
   Future<void> onRefresh() async {
     emit(CartLoadingState());
     products.clear();
@@ -56,11 +67,12 @@ class CartCubit extends Cubit<CartState> {
     }
     return prices;
   }
-
   void setPopupMenuValue(int value, int index) {
     products[index].itemCount = value;
     cartModel.cartItems[index].quantity = value;
+    upgradeItemAmount(amount: value, id: cartModel.cartItems[index].id);
     totalPrice = getTotalPrice();
     emit(CartSuccessState());
   }
+
 }
