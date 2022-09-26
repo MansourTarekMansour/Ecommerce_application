@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:man_shop_app/shared/components/constants.dart';
 import 'package:man_shop_app/shared/network/local/cache_helper.dart';
 import 'package:man_shop_app/shared/network/remote/dio_helper.dart';
 
@@ -17,6 +18,7 @@ class LoginWebService{
         key: 'token',
         value: data['data']['token'],
       );
+      AppConst.token = await CacheHelper.getData(key: 'token') ?? '';
       return data ;
     } else {
       throw data['message'];

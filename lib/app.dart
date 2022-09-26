@@ -9,12 +9,14 @@ import 'package:man_shop_app/data/repositories/authentication/register_repositor
 import 'package:man_shop_app/data/repositories/cart/cart_repository.dart';
 import 'package:man_shop_app/data/repositories/favorites/favorites_repository.dart';
 import 'package:man_shop_app/data/repositories/home/home_repository.dart';
+import 'package:man_shop_app/data/repositories/search/search_repository.dart';
 import 'package:man_shop_app/data/web_service/authentication/login_web_service.dart';
 import 'package:man_shop_app/data/web_service/authentication/logout_web_service.dart';
 import 'package:man_shop_app/data/web_service/authentication/register_web_service.dart';
 import 'package:man_shop_app/data/web_service/cart/cart_web_service.dart';
 import 'package:man_shop_app/data/web_service/favorites/favorites_web_service.dart';
 import 'package:man_shop_app/data/web_service/home/home_web_service.dart';
+import 'package:man_shop_app/data/web_service/search/search_web_service.dart';
 import 'package:man_shop_app/presentation/authentication/login/bloc/login_cubit.dart';
 import 'package:man_shop_app/presentation/authentication/login/screens/login_screen.dart';
 import 'package:man_shop_app/presentation/authentication/logout/bloc/logout_cubit.dart';
@@ -25,6 +27,7 @@ import 'package:man_shop_app/presentation/cart/bloc/cart_cubit.dart';
 import 'package:man_shop_app/presentation/favorites/bloc/favorites_cubit.dart';
 import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
 import 'package:man_shop_app/presentation/on_boarding/screens/on_boarding_screen.dart';
+import 'package:man_shop_app/presentation/search/bloc/search_cubit.dart';
 import 'data/repositories/authentication/login_repository/login_repository.dart';
 
 class MyApp extends StatelessWidget {
@@ -36,37 +39,39 @@ class MyApp extends StatelessWidget {
       {Key? key,
       required this.appRoutes,
       required this.onBoarding,
-      required this.token})
+      required this.token,})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
       statusBarColor: Colors.black,
-    ));
+    ),);
     return MultiBlocProvider(
       providers: [
         BlocProvider(
             create: (context) => LoginCubit(
                   LoginRepository(LoginWebService()),
-                )),
+                ),),
         BlocProvider(
             create: (context) =>
-                RegisterCubit(RegisterRepository(RegisterWebService()))),
+                RegisterCubit(RegisterRepository(RegisterWebService())),),
         BlocProvider(
             create: (context) =>
-                LogoutCubit(LogoutRepository(LogoutWebService()))),
+                LogoutCubit(LogoutRepository(LogoutWebService())),),
         BlocProvider(create: (context) => BottomNavigationBarCubit()),
         BlocProvider(
             create: (context) =>
-                HomeCubit(HomeRepository(HomeWebService()))..getHomeData()),
+                HomeCubit(HomeRepository(HomeWebService()))..getHomeData(),),
         BlocProvider(
             create: (context) =>
-                FavoritesCubit(FavoritesRepository(FavoritesWebService()))..onRefresh()),
+                FavoritesCubit(FavoritesRepository(FavoritesWebService()))..onRefresh(),),
         BlocProvider(
             create: (context) =>
-            CartCubit(CartRepository(CartWebService()))..getCartData()),
-
+            CartCubit(CartRepository(CartWebService()))),
+        BlocProvider(
+            create: (context) =>
+                SearchCubit(SearchRepository(SearchWebService()))),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

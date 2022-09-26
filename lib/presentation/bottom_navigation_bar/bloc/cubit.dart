@@ -4,6 +4,8 @@ import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/presentation/bottom_navigation_bar/bloc/states.dart';
 import 'package:man_shop_app/presentation/bottom_navigation_bar/widgets/favorites_appbar.dart';
 import 'package:man_shop_app/presentation/bottom_navigation_bar/widgets/home_appbar.dart';
+import 'package:man_shop_app/presentation/bottom_navigation_bar/widgets/order_appbar.dart';
+import 'package:man_shop_app/presentation/bottom_navigation_bar/widgets/profile_appbar.dart';
 import 'package:man_shop_app/presentation/favorites/screens/favorites_screen.dart';
 import 'package:man_shop_app/presentation/home/screens/home_screen.dart';
 import 'package:man_shop_app/presentation/order/screen/oeder_screen.dart';
@@ -27,9 +29,9 @@ class BottomNavigationBarCubit extends Cubit<BottomNavigationBarStates> {
   ];
   List appbars = [
     HomePageAppBar(),
-    HomePageAppBar(),
+    OrderAppBar(),
     FavoritesAppBar(),
-    FavoritesAppBar(),
+    ProfileAppBar(),
   ];
 
   void scrollDirection({required bool scroll}){
