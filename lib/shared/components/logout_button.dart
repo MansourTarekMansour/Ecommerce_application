@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/presentation/authentication/login/screens/login_screen.dart';
 import 'package:man_shop_app/presentation/authentication/logout/bloc/logout_cubit.dart';
 import 'package:man_shop_app/presentation/bottom_navigation_bar/bloc/cubit.dart';
@@ -28,6 +29,8 @@ class LogoutButton extends StatelessWidget {
           condition: state is! LogoutLoadingState,
           builder: (context) => CustomButton(
             text: 'Logout',
+            buttonColor: Colors.white,
+            textColor: AppColors.mainColor,
             onPressed: () {
               BlocProvider.of<BottomNavigationBarCubit>(context).changeBottom(0);
               logoutCubit.userLogout();
@@ -37,14 +40,14 @@ class LogoutButton extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             height: 50,
             decoration: const BoxDecoration(
-              color: Color.fromRGBO(64, 123, 255, 1),
-              borderRadius: BorderRadiusDirectional.all(Radius.circular(15)),
+              color: Colors.white,
+              borderRadius:  BorderRadiusDirectional.all(Radius.circular(15)),
             ),
-            child: const Align(
+            child: Align(
               alignment: Alignment.center,
               child: CircularProgressIndicator(
                 strokeWidth: 4,
-                color: Colors.white,
+                color: AppColors.mainColor,
               ),
             ),
           ),

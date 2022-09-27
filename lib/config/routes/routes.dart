@@ -7,5 +7,7 @@ abstract class Routes {
   static const favoriteRoute = '/favorite';
   static const profileRoute = '/profile';
   static const productDetailsRoute = '/productDetails';
+  static const editUserDetailsRoute = '/editUserDetailsRoute';
+
 }
 

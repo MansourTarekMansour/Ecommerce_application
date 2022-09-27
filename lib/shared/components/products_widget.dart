@@ -7,10 +7,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:man_shop_app/config/routes/routes.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/data/models/home/home_model.dart';
-import 'package:man_shop_app/presentation/cart/bloc/cart_cubit.dart';
 import 'package:man_shop_app/presentation/favorites/bloc/favorites_cubit.dart';
 import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
-import 'package:man_shop_app/presentation/product_details/bloc/product_details_cubit.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ProductsWidget extends StatelessWidget {
@@ -30,39 +28,41 @@ class ProductsWidget extends StatelessWidget {
         right: 15.0,
       ),
       child: SizedBox(
-        width: double.infinity,
+        width: MediaQuery.of(context).size.width,
         child: MasonryGridView.count(
           itemCount: products.length,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: 2,
-          mainAxisSpacing: 15,
-          crossAxisSpacing: 15,
+          crossAxisCount: MediaQuery.of(context).size.width ~/ 178,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
           itemBuilder: (context, index) {
-            return Stack(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
-                      Routes.productDetailsRoute,
-                      arguments: [
-                        products[index],
-                        products[index].id,
-                      ],
-                    );
-                  },
-                  child: Container(
-                    height: 220,
-                    width: 173,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(15),
+            return SizedBox(
+              height: 220,
+              width: 173,
+              child: Stack(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        Routes.productDetailsRoute,
+                        arguments: [
+                          products[index],
+                          products[index].id,
+                        ],
+                      );
+                    },
+                    child: Container(
+                      height: 220,
+                      width: 173,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                        border: Border.all(
+                            color: AppColors.mainColor.withOpacity(0.2)),
                       ),
-                      border: Border.all(
-                          color: AppColors.mainColor.withOpacity(0.2)),
-                    ),
-                    child: SizedBox(
                       child: Stack(
                         children: [
                           Positioned(
@@ -77,8 +77,7 @@ class ProductsWidget extends StatelessWidget {
                                   topLeft: Radius.circular(15),
                                   topRight: Radius.circular(15),
                                 ),
-                                child:
-                                CachedNetworkImage(
+                                child: CachedNetworkImage(
                                   imageUrl: products[index].image,
                                   imageBuilder: (context, imageProvider) => Container(
                                     height: 150,
@@ -98,11 +97,6 @@ class ProductsWidget extends StatelessWidget {
                                   errorWidget: (context, url, error) =>
                                   const Icon(Icons.error),
                                 ),
-                                // Image.network(
-                                //   products[index].image,
-                                //   fit: BoxFit.contain,
-                                //   height: 150,
-                                // ),
                               ),
                             ),
                           ),
@@ -204,41 +198,41 @@ class ProductsWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
-                if (isFavorite)
-                  if (favoritesCubit.notFavorite[index])
-                    BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
-                      child: Container(
-                        height: 220,
-                        width: 173,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.4),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(15),
+                  if (isFavorite)
+                    if (favoritesCubit.notFavorite[index])
+                      BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 0, sigmaY: 0),
+                        child: Container(
+                          height: 220,
+                          width: 173,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.4),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(15),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                Positioned(
-                  top: 180,
-                  right: 10,
-                  child: InkWell(
-                    onTap: () {
-                      BlocProvider.of<HomeCubit>(context)
-                          .isFavorites(id: products[index].id);
-                      favoritesCubit.isFavorite(index);
-                    },
-                    child: Icon(
-                      Icons.favorite,
-                      color: products[index].inFavorites
-                          ? Colors.red
-                          : Colors.grey.withOpacity(0.5),
-                      size: 30,
+                  Positioned(
+                    top: 180,
+                    left: 125,
+                    child: InkWell(
+                      onTap: () {
+                        BlocProvider.of<HomeCubit>(context)
+                            .isFavorites(id: products[index].id);
+                        favoritesCubit.isFavorite(index);
+                      },
+                      child: Icon(
+                        Icons.favorite,
+                        color: products[index].inFavorites
+                            ? Colors.red
+                            : Colors.grey.withOpacity(0.5),
+                        size: 30,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             );
           },
         ),

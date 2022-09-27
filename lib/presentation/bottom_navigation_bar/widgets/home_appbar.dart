@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:man_shop_app/config/routes/routes.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
 
+
 class HomePageAppBar extends StatefulWidget implements PreferredSizeWidget {
   HomePageAppBar({Key? key})
       : preferredSize = const Size.fromHeight(80),
@@ -29,7 +30,7 @@ class _HomePageAppBarState extends State<HomePageAppBar> {
               Navigator.of(context).pushNamed(Routes.searchRoute);
             },
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.8,
+                width: MediaQuery.of(context).size.width * 0.8,
                 decoration: const BoxDecoration(
                     color: Color(0xFFF2F3F2),
                     borderRadius: BorderRadius.all(Radius.circular(15))),
