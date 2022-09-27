@@ -6,8 +6,8 @@ ThemeData appTheme(){
   return ThemeData(
     primaryColor: AppColors.mainColor,
     appBarTheme: const AppBarTheme(
-      //systemOverlayStyle: SystemUiOverlayStyle.dark,
-      brightness: Brightness.dark,
+      //systemOverlayStyle: SystemUiOverlayStyle.light,
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
     )
   );
 }

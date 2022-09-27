@@ -25,7 +25,7 @@ class BottomNavigationBarCubit extends Cubit<BottomNavigationBarStates> {
     const HomeScreen(),
     OrderScreen(),
     FavoritesScreen(),
-    const ProfileScreen(),
+    ProfileScreen(),
   ];
   List appbars = [
     HomePageAppBar(),
