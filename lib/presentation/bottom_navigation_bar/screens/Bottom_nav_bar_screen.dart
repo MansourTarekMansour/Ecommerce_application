@@ -28,7 +28,7 @@ class BottomNavigationBarScreen extends StatelessWidget {
                     bottomNavCubit.scrollDirection(scroll: false);
                   } else if (scrollNotification.direction ==
                           ScrollDirection.reverse &&
-                      scrollNotification.metrics.pixels >= 0) {
+                      scrollNotification.metrics.pixels >= 10) {
                     bottomNavCubit.scrollDirection(scroll: true);
                   }
                 }
@@ -56,7 +56,7 @@ class BottomNavigationBarScreen extends StatelessWidget {
                       ),
                     ),
                     Visibility(
-                      visible: !bottomNavCubit.scrollDown || bottomNavCubit.currentIndex > 0,
+                      //visible: !bottomNavCubit.scrollDown || bottomNavCubit.currentIndex > 0,
                       child: Positioned(
                         bottom: 0,
                         left: 0,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,6 +7,7 @@ import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/presentation/product_details/screens/product_details_screen.dart';
 import 'package:man_shop_app/presentation/profile/bloc/profile_cubit.dart';
 import 'package:man_shop_app/presentation/profile/screens/user_details_screen.dart';
+import 'package:shimmer/shimmer.dart';
 
 class UserProfileCard extends StatelessWidget {
   const UserProfileCard({Key? key}) : super(key: key);
@@ -44,12 +46,29 @@ class UserProfileCard extends StatelessWidget {
               child: SizedBox(
                 height: 90,
                 width: 90,
-                child: ClipOval(
-                  child: Image.network(
+                child:
+                ClipOval(
+                  child: CachedNetworkImage(
+                    imageUrl:
                     profileCubit.profileModel.image,
-                    fit: BoxFit.cover,
-                    height: 90,
-                    width: 90,
+                    imageBuilder: (context, imageProvider) => Container(
+                      height: 90,
+                      width: 90,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    placeholder: (context, url) => Shimmer.fromColors(
+                      baseColor: Colors.grey[100]!,
+                      highlightColor: Colors.grey[200]!,
+                      child:
+                      Image.asset('assets/images/almansoury_text.png'),
+                    ),
+                    errorWidget: (context, url, error) =>
+                    const Icon(Icons.error),
                   ),
                 ),
               ),

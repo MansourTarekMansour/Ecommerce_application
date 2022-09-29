@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
-import 'package:man_shop_app/presentation/profile/bloc/profile_cubit.dart';
 
-class ProfileIconTextCard extends StatelessWidget {
-  ProfileIconTextCard({
+class ProfileIconTextButtonCard extends StatelessWidget {
+  ProfileIconTextButtonCard({
     Key? key,
     required this.text,
-    required this.hint,
     required this.iconPath,
-    this.iconWidth = 40,
+    required this.hint,
+    this.iconColor = Colors.grey,
+    required this.onPress,
   }) : super(key: key);
   final String text;
   final String hint;
   final String iconPath;
-  double iconWidth;
+  Color iconColor;
+  final VoidCallback onPress;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class ProfileIconTextCard extends StatelessWidget {
         Align(
           alignment: Alignment.bottomCenter,
           child: Container(
-            width: (MediaQuery.of(context).size.width / 2) - 25,
+            width: MediaQuery.of(context).size.width,
             height: 70,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -43,11 +43,12 @@ class ProfileIconTextCard extends StatelessWidget {
           child: SvgPicture.asset(
             iconPath,
             fit: BoxFit.fitWidth,
-            width: iconWidth,
+            width: 40,
+            color: Colors.grey,
           ),
         ),
         Positioned(
-          left: 60,
+          left: 70,
           top: 17.5,
           child: Column(
             //mainAxisAlignment: MainAxisAlignment.start,
@@ -65,13 +66,38 @@ class ProfileIconTextCard extends StatelessWidget {
               Text(
                 hint,
                 style: const TextStyle(
-                  color: Colors.blue,
+                  color: Colors.grey,
                   fontSize: 14,
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ],
+          ),
+        ),
+        Positioned(
+          right: 15,
+          top: 22.5,
+          child: SvgPicture.asset(
+            'assets/images/back_arrow.svg',
+            color: Colors.grey,
+            fit: BoxFit.fitWidth,
+            height: 25,
+          ),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: GestureDetector(
+            onTap: onPress,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: 80,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(15),
+                ),
+              ),
+            ),
           ),
         ),
       ],

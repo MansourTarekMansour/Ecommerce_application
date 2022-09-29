@@ -19,6 +19,7 @@ import 'package:man_shop_app/data/web_service/favorites/favorites_web_service.da
 import 'package:man_shop_app/data/web_service/home/home_web_service.dart';
 import 'package:man_shop_app/data/web_service/profile/profile_web_service.dart';
 import 'package:man_shop_app/data/web_service/search/search_web_service.dart';
+import 'package:man_shop_app/presentation/address/bloc/address_cubit.dart';
 import 'package:man_shop_app/presentation/authentication/login/bloc/login_cubit.dart';
 import 'package:man_shop_app/presentation/authentication/login/screens/login_screen.dart';
 import 'package:man_shop_app/presentation/authentication/logout/bloc/logout_cubit.dart';
@@ -78,6 +79,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 ProfileCubit(ProfileRepository(ProfileWebService()))..getProfileData()),
+        BlocProvider(
+            create: (context) =>
+            AddressCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

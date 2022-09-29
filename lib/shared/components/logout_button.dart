@@ -29,8 +29,8 @@ class LogoutButton extends StatelessWidget {
           condition: state is! LogoutLoadingState,
           builder: (context) => CustomButton(
             text: 'Logout',
-            buttonColor: Colors.white,
-            textColor: AppColors.mainColor,
+            buttonColor: AppColors.mainColor,
+            textColor: Colors.white,
             onPressed: () {
               BlocProvider.of<BottomNavigationBarCubit>(context).changeBottom(0);
               logoutCubit.userLogout();

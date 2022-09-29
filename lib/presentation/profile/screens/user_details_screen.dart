@@ -1,13 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:man_shop_app/config/routes/routes.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
+import 'package:man_shop_app/presentation/address/screens/address_screen.dart';
 import 'package:man_shop_app/presentation/profile/bloc/profile_cubit.dart';
 import 'package:man_shop_app/presentation/profile/screens/edit_user_details_screen.dart';
+import 'package:man_shop_app/presentation/profile/widgets/profile_icon_text_button_card.dart';
 import 'package:man_shop_app/presentation/profile/widgets/profile_text_field.dart';
 import 'package:man_shop_app/shared/components/navigation.dart';
 import 'package:man_shop_app/shared/components/text_class.dart';
+import 'package:shimmer/shimmer.dart';
 
 class UserDetailsScreen extends StatelessWidget {
   const UserDetailsScreen({Key? key}) : super(key: key);
@@ -55,30 +59,24 @@ class UserDetailsScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.grey),
               ),
             ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 10.0),
-                child: IconButton(
-                  iconSize: 28,
-                  color: Colors.black,
-                  icon: SvgPicture.asset('assets/icons/edit_user_details.svg'),
-                  onPressed: () =>
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => EditUserDetailsScreen()),
-                      ),
-                ),
-              ),
+            actions: const [
+               SizedBox(width: 50),
             ],
           ),
           body: BlocBuilder<ProfileCubit, ProfileState>(
             builder: (context, state) {
               final profileCubit = BlocProvider.of<ProfileCubit>(context);
-              return Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    Column(
+              return Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      border: Border(
+                        bottom: BorderSide(width: 0.1, color: Colors.grey),
+                      ),
+                    ),
+                    child: Column(
                       children: [
                         const SizedBox(height: 15),
                         Container(
@@ -95,9 +93,25 @@ class UserDetailsScreen extends StatelessWidget {
                               width: 130,
                               height: 130,
                               child: ClipOval(
-                                child: Image.network(
+                                child: CachedNetworkImage(
+                                  imageUrl:
                                   profileCubit.profileModel.image,
-                                  fit: BoxFit.cover,
+                                  imageBuilder: (context, imageProvider) => Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  placeholder: (context, url) => Shimmer.fromColors(
+                                    baseColor: Colors.grey[100]!,
+                                    highlightColor: Colors.grey[200]!,
+                                    child:
+                                    Image.asset('assets/images/almansoury_text.png'),
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
                                 ),
                               ),
                             ),
@@ -109,7 +123,14 @@ class UserDetailsScreen extends StatelessWidget {
                           fontSize: 22,
                           overflow: TextOverflow.clip,
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 15),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: [
                         ProfileTextField(
                           text: profileCubit.profileModel.phone,
                           icon: Icons.phone,
@@ -119,11 +140,33 @@ class UserDetailsScreen extends StatelessWidget {
                           text: profileCubit.profileModel.email,
                           icon: Icons.email,
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 15),
+                        const Divider(color: Colors.grey),
+                        const SizedBox(height: 15),
+                        ProfileIconTextButtonCard(
+                          text: 'Edit Profile',
+                          hint: 'Tap to edit your information',
+                          iconPath: 'assets/icons/edit_profile.svg',
+                          onPress: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => EditUserDetailsScreen()),
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        ProfileIconTextButtonCard(
+                          text: 'Addresses',
+                          hint: 'Tap to view addresses and edit it',
+                          iconPath: 'assets/icons/edit_address.svg',
+                          onPress: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>  MapScreen()),
+                          ),
+                        ),
+                        const SizedBox(height: 5),
                       ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               );
             },
           ),
