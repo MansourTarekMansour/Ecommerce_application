@@ -66,7 +66,7 @@ class PaymentCard extends StatelessWidget {
           CustomButton(
             text: 'PAYMENT',
             onPressed: () {
-              
+
             },
             fontSize:  18,
             fontWeight: FontWeight.bold,

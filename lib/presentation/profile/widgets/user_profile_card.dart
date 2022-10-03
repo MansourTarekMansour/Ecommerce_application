@@ -2,9 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:man_shop_app/config/routes/routes.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
-import 'package:man_shop_app/presentation/product_details/screens/product_details_screen.dart';
 import 'package:man_shop_app/presentation/profile/bloc/profile_cubit.dart';
 import 'package:man_shop_app/presentation/profile/screens/user_details_screen.dart';
 import 'package:shimmer/shimmer.dart';
@@ -124,7 +122,7 @@ class UserProfileCard extends StatelessWidget {
               onTap: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => UserDetailsScreen()),
+                  MaterialPageRoute(builder: (context) => const UserDetailsScreen()),
                 );
               },
               child: Container(
@@ -147,7 +145,7 @@ class UserProfileCard extends StatelessWidget {
               onTap: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => UserDetailsScreen()),
+                  MaterialPageRoute(builder: (context) => const UserDetailsScreen()),
                 );
               },
               child: Container(

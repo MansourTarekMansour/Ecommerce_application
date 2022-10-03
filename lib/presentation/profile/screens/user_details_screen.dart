@@ -2,14 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:man_shop_app/config/routes/routes.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/presentation/address/screens/address_screen.dart';
 import 'package:man_shop_app/presentation/profile/bloc/profile_cubit.dart';
 import 'package:man_shop_app/presentation/profile/screens/edit_user_details_screen.dart';
 import 'package:man_shop_app/presentation/profile/widgets/profile_icon_text_button_card.dart';
 import 'package:man_shop_app/presentation/profile/widgets/profile_text_field.dart';
-import 'package:man_shop_app/shared/components/navigation.dart';
 import 'package:man_shop_app/shared/components/text_class.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -159,7 +157,7 @@ class UserDetailsScreen extends StatelessWidget {
                           iconPath: 'assets/icons/edit_address.svg',
                           onPress: () => Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) =>  MapScreen()),
+                            MaterialPageRoute(builder: (context) =>  AddressScreen()),
                           ),
                         ),
                         const SizedBox(height: 5),

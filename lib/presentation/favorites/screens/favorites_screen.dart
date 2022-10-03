@@ -10,7 +10,7 @@ import 'package:man_shop_app/shared/components/smart_refresh.dart';
 class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final favoritesCubit = BlocProvider.of<FavoritesCubit>(context);
+    final favoritesCubit = BlocProvider.of<FavoritesCubit>(context)..onRefresh();
     return BlocConsumer<FavoritesCubit, FavoritesState>(
       listener: (context, state) {},
       builder: (context, state) {

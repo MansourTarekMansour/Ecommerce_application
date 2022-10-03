@@ -44,7 +44,7 @@ class ProfileIconTextButtonCard extends StatelessWidget {
             iconPath,
             fit: BoxFit.fitWidth,
             width: 40,
-            color: Colors.grey,
+            color: iconColor,
           ),
         ),
         Positioned(
@@ -91,7 +91,7 @@ class ProfileIconTextButtonCard extends StatelessWidget {
             onTap: onPress,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 80,
+              height: 70,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(
                   Radius.circular(15),

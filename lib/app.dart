@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/config/routes/app_routes.dart';
 import 'package:man_shop_app/config/themes/app_themes.dart';
 import 'package:man_shop_app/core/utils/app_strings.dart';
+import 'package:man_shop_app/data/repositories/address/address_repository.dart';
 import 'package:man_shop_app/data/repositories/authentication/logout_repository/logout_repository.dart';
 import 'package:man_shop_app/data/repositories/authentication/register_repository/register_repository.dart';
 import 'package:man_shop_app/data/repositories/cart/cart_repository.dart';
@@ -11,6 +12,7 @@ import 'package:man_shop_app/data/repositories/favorites/favorites_repository.da
 import 'package:man_shop_app/data/repositories/home/home_repository.dart';
 import 'package:man_shop_app/data/repositories/profile/profile_repository.dart';
 import 'package:man_shop_app/data/repositories/search/search_repository.dart';
+import 'package:man_shop_app/data/web_service/address/address_web_service.dart';
 import 'package:man_shop_app/data/web_service/authentication/login_web_service.dart';
 import 'package:man_shop_app/data/web_service/authentication/logout_web_service.dart';
 import 'package:man_shop_app/data/web_service/authentication/register_web_service.dart';
@@ -81,7 +83,7 @@ class MyApp extends StatelessWidget {
                 ProfileCubit(ProfileRepository(ProfileWebService()))..getProfileData()),
         BlocProvider(
             create: (context) =>
-            AddressCubit()),
+            AddressCubit(AddressRepository(AddressWebService()))),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

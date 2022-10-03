@@ -82,11 +82,6 @@ class CartProductsWidget extends StatelessWidget {
                               errorWidget: (context, url, error) =>
                               const Icon(Icons.error),
                             ),
-                            // Image.network(
-                            //   product.image,
-                            //   fit: BoxFit.contain,
-                            //   height: 150,
-                            // ),
                             Positioned(
                               top: 0,
                               left: 0,
