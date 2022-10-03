@@ -132,6 +132,7 @@ class UserDetailsScreen extends StatelessWidget {
                         ProfileTextField(
                           text: profileCubit.profileModel.phone,
                           icon: Icons.phone,
+
                         ),
                         const SizedBox(height: 15),
                         ProfileTextField(
@@ -145,6 +146,9 @@ class UserDetailsScreen extends StatelessWidget {
                           text: 'Edit Profile',
                           hint: 'Tap to edit your information',
                           iconPath: 'assets/icons/edit_profile.svg',
+                          iconSize: 25,
+                          positionIconTop: 20,
+                          positionIconLeft: 25,
                           onPress: () => Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => EditUserDetailsScreen()),
@@ -155,6 +159,9 @@ class UserDetailsScreen extends StatelessWidget {
                           text: 'Addresses',
                           hint: 'Tap to view addresses and edit it',
                           iconPath: 'assets/icons/edit_address.svg',
+                          iconSize: 25,
+                          positionIconTop: 20,
+                          positionIconLeft: 25,
                           onPress: () => Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) =>  AddressScreen()),
