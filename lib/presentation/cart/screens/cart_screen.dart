@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
+import 'package:man_shop_app/presentation/address/bloc/address_cubit.dart';
 import 'package:man_shop_app/presentation/cart/bloc/cart_cubit.dart';
 import 'package:man_shop_app/presentation/cart/widgets/cart_products.dart';
 import 'package:man_shop_app/presentation/cart/widgets/paymen_card.dart';
@@ -15,6 +16,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartCubit = BlocProvider.of<CartCubit>(context)..getCartData();
+    BlocProvider.of<AddressCubit>(context).getAddressData();
     return BlocConsumer<CartCubit, CartState>(
       listener: (context, state) {},
       builder: (context, state) {
