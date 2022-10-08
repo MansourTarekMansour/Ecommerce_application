@@ -49,29 +49,32 @@ class ProfileIconTextCard extends StatelessWidget {
         Positioned(
           left: 60,
           top: 17.5,
-          child: Column(
-            //mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                text,
-                style: const TextStyle(
-                  fontSize: 15,
+          child: SizedBox(
+            width: 100,
+            child: Column(
+              //mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  text,
+                  style: const TextStyle(
+                    fontSize: 15,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              const SizedBox(height: 1),
-              Text(
-                hint,
-                style: const TextStyle(
-                  color: Colors.blue,
-                  fontSize: 14,
+                const SizedBox(height: 1),
+                Text(
+                  (hint.contains('.') ? hint.replaceRange(hint.indexOf('.'), hint.length, ''): hint),
+                  style: const TextStyle(
+                    color: Colors.blue,
+                    fontSize: 14,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],

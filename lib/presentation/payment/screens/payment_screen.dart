@@ -19,6 +19,7 @@ class PaymentScreen extends StatelessWidget {
     return BlocConsumer<PaymentCubit, PaymentState>(
       listener: (context, state) {
         if(state is PaymentAddOrderSuccessState){
+          BlocProvider.of<PaymentCubit>(context).clearData();
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(

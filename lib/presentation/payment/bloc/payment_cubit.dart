@@ -23,11 +23,13 @@ class PaymentCubit extends Cubit<PaymentState> {
   int promoCodeId = 0;
   int addressIndex = -1;
   int addressId = -1;
+  bool moreDetails = false;
   final TextEditingController promoCodeController = TextEditingController();
 
   Future<void> addOrder() async {
     emit(PaymentAddOrderLoadingState());
     try {
+      log(addressId.toString());
       addOrderModel = await paymentRepository.addOrder(
         usePoints: usePoints,
         paymentMethod: paymentType,
@@ -96,6 +98,11 @@ class PaymentCubit extends Cubit<PaymentState> {
     emit(PaymentSuccessState());
   }
 
+  void changeMoreDetailsButton(){
+    moreDetails = !moreDetails;
+    emit(PaymentSuccessState());
+  }
+
   bool validate() {
     if (paymentType != 0 &&
         ((usePromoCode == true && promoCodeValidate) || !usePromoCode) &&
@@ -103,5 +110,15 @@ class PaymentCubit extends Cubit<PaymentState> {
       return true;
     }
     return false;
+  }
+  void clearData(){
+     paymentType = 0;
+     usePoints = false;
+     usePromoCode = false;
+     promoCodeValidate = false;
+     promoCodeId = 0;
+     addressIndex = -1;
+     addressId = -1;
+     moreDetails = false;
   }
 }

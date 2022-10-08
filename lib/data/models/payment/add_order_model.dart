@@ -12,8 +12,8 @@ class AddOrderModel {
   late final int cost;
   late final double vat;
   late final int discount;
-  late final double points;
-  late final double total;
+  late final dynamic points;
+  late final dynamic total;
   late final int id;
 
   AddOrderModel.fromJson(Map<String, dynamic> json){

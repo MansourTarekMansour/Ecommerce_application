@@ -10,7 +10,7 @@ import 'package:man_shop_app/shared/utils/server_utils.dart';
 class PaymentWebService {
   Future<Map<String, dynamic>> addOrder(
       {required int addressId, required int paymentMethod, required bool usePoints,}) async {
-    const String url = AppStrings.url + 'order';
+    const String url = AppStrings.url + 'orders';
     final headers = {
       "Authorization": AppConst.token,
       'lang': 'en',

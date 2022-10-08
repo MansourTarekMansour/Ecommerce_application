@@ -16,7 +16,11 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartCubit = BlocProvider.of<CartCubit>(context)..getCartData();
-    BlocProvider.of<AddressCubit>(context).getAddressData();
+    BlocProvider.of<AddressCubit>(context).getAddressData().then((value) {
+      if(BlocProvider.of<AddressCubit>(context).addressModel!.data.isNotEmpty){
+        BlocProvider.of<AddressCubit>(context).addressModel!.data[0].menuOnPress = false;
+      }
+    });
     return BlocConsumer<CartCubit, CartState>(
       listener: (context, state) {},
       builder: (context, state) {

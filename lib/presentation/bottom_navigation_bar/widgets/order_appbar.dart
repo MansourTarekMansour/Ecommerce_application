@@ -21,7 +21,7 @@ class _FavoritesAppBarState extends State<OrderAppBar> {
       width: double.infinity,
       child:  Center(
         child: Text(
-          'Order',
+          'Orders',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,

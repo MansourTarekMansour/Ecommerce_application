@@ -10,6 +10,7 @@ import 'package:man_shop_app/data/repositories/authentication/register_repositor
 import 'package:man_shop_app/data/repositories/cart/cart_repository.dart';
 import 'package:man_shop_app/data/repositories/favorites/favorites_repository.dart';
 import 'package:man_shop_app/data/repositories/home/home_repository.dart';
+import 'package:man_shop_app/data/repositories/order/order_repository.dart';
 import 'package:man_shop_app/data/repositories/payment/payment_repository.dart';
 import 'package:man_shop_app/data/repositories/profile/profile_repository.dart';
 import 'package:man_shop_app/data/repositories/search/search_repository.dart';
@@ -20,6 +21,7 @@ import 'package:man_shop_app/data/web_service/authentication/register_web_servic
 import 'package:man_shop_app/data/web_service/cart/cart_web_service.dart';
 import 'package:man_shop_app/data/web_service/favorites/favorites_web_service.dart';
 import 'package:man_shop_app/data/web_service/home/home_web_service.dart';
+import 'package:man_shop_app/data/web_service/order/order_web_service.dart';
 import 'package:man_shop_app/data/web_service/payment/payment_web_service.dart';
 import 'package:man_shop_app/data/web_service/profile/profile_web_service.dart';
 import 'package:man_shop_app/data/web_service/search/search_web_service.dart';
@@ -34,6 +36,7 @@ import 'package:man_shop_app/presentation/cart/bloc/cart_cubit.dart';
 import 'package:man_shop_app/presentation/favorites/bloc/favorites_cubit.dart';
 import 'package:man_shop_app/presentation/home/bloc/home_cubit.dart';
 import 'package:man_shop_app/presentation/on_boarding/screens/on_boarding_screen.dart';
+import 'package:man_shop_app/presentation/order/bloc/order_cubit.dart';
 import 'package:man_shop_app/presentation/payment/bloc/payment_cubit.dart';
 import 'package:man_shop_app/presentation/profile/bloc/profile_cubit.dart';
 import 'package:man_shop_app/presentation/search/bloc/search_cubit.dart';
@@ -70,6 +73,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 HomeCubit(HomeRepository(HomeWebService()))..getHomeData(),),
+        BlocProvider(
+          create: (context) =>
+          OrderCubit(OrderRepository(OrderWebService()))),
         BlocProvider(
             create: (context) =>
                 FavoritesCubit(FavoritesRepository(FavoritesWebService()))..onRefresh(),),
