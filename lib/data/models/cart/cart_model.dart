@@ -7,8 +7,8 @@ class CartModel {
     required this.total,
   });
   late final List<CartItems> cartItems;
-  late final int subTotal;
-  late final int total;
+  late final dynamic subTotal;
+  late final dynamic total;
 
   CartModel.fromJson(Map<String, dynamic> json){
     cartItems = List.from(json['cart_items'] ?? []).map((e)=>CartItems.fromJson(e)).toList();

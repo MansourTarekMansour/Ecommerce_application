@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/presentation/cart/bloc/cart_cubit.dart';
+import 'package:man_shop_app/presentation/payment/screens/payment_screen.dart';
 import 'package:man_shop_app/shared/components/custom_button.dart';
 
 class PaymentCard extends StatelessWidget {
@@ -66,7 +67,10 @@ class PaymentCard extends StatelessWidget {
           CustomButton(
             text: 'PAYMENT',
             onPressed: () {
-
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const PaymentScreen()),
+              );
             },
             fontSize:  18,
             fontWeight: FontWeight.bold,
