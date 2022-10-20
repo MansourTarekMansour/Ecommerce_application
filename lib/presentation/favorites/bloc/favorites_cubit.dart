@@ -48,7 +48,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   }
 
   Future<void> isFavorite(int index) async {
-    products[index].inFavorites  = !products[index].inFavorites;
+    products[index].inFavorites = !products[index].inFavorites;
     notFavorite[index] = !notFavorite[index];
     emit(FavoritesSuccess());
   }

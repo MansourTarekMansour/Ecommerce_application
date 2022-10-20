@@ -32,7 +32,7 @@ class ProfileTextField extends StatelessWidget {
               //mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 IconButton(
-                  iconSize: size.width >= 500 ? 25 : size.width / 20,
+                  iconSize: 23,
                   icon: Icon(icon),
                   onPressed: null,
                   color: Colors.black,

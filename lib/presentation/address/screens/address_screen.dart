@@ -1,98 +1,72 @@
-// import 'package:flutter/material.dart';
-//
-// class AddressScreen extends StatelessWidget {
-//   const AddressScreen({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//
-//     );
-//   }
-// }
-
-
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/presentation/address/bloc/address_cubit.dart';
-import 'package:man_shop_app/presentation/address/widgets/location_search_dialog.dart';
-class MapScreen extends StatefulWidget {
-  const MapScreen({Key? key}) : super(key: key);
+import 'package:man_shop_app/presentation/address/widgets/add_address_button.dart';
+import 'package:man_shop_app/presentation/address/widgets/addresses_list.dart';
+import 'package:man_shop_app/shared/components/custom_loading_indicator.dart';
 
-  @override
-  State<MapScreen> createState() => _MapScreenState();
-}
-
-class _MapScreenState extends State<MapScreen> {
-  late CameraPosition _cameraPosition;
-  @override
-  void initState(){
-    super.initState();
-    _cameraPosition=CameraPosition(target: LatLng(
-        45.521563,-122.677433
-    ), zoom: 17);
-  }
-
-  late GoogleMapController _mapController;
+class AddressScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-    return BlocBuilder<AddressCubit, AddressState>(
-
-  builder: (context, state) {
-    final addressCubit = BlocProvider.of<AddressCubit>(context);
+    BlocProvider.of<AddressCubit>(context).getAddressData();
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Maps Sample App'),
-          backgroundColor: Colors.green[700],
-        ),
-        body: Stack(
-          children: <Widget>[
-            GoogleMap(
-                onMapCreated: (GoogleMapController mapController) {
-                  _mapController = mapController;
-                  //addressCubit.setMapController(mapController);
-                },
-                initialCameraPosition: _cameraPosition
+      appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
+            width: 40,
+            height: 40,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.grey[200]?.withOpacity(0.7),
             ),
-            Positioned(
-              top: 100,
-              left: 10, right: 20,
-              child: GestureDetector(
-                onTap:() {
-                  LocationSearchDialog(mapController: _mapController);
-                },
-                child: Container(
-                  height: 50,
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  decoration: BoxDecoration(color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Row(children: [
-                    Icon(Icons.location_on, size: 25, color: Theme.of(context).primaryColor),
-                    SizedBox(width: 5),
-                    //here we show the address on the top
-                    Expanded(
-                      child: Text(
-                        '${addressCubit.pickPlaceMark.name ?? ''} ${addressCubit.pickPlaceMark.locality ?? ''} '
-                            '${addressCubit.pickPlaceMark.postalCode ?? ''} ${addressCubit.pickPlaceMark.country ?? ''}',
-                        style: TextStyle(fontSize: 20),
-                        maxLines: 1, overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Icon(Icons.search, size: 25, color: Theme.of(context).textTheme.bodyText1!.color),
-                  ]),
-                ),
+            // ignore: deprecated_member_use
+            child: MaterialButton(
+              elevation: 0.0,
+              highlightElevation: 0.0,
+              padding: EdgeInsets.zero,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(3),
+              ),
+              color: Colors.transparent,
+              onPressed: () => Navigator.pop(context),
+              child: SvgPicture.asset(
+                'assets/images/left_arrow.svg',
+                color: AppColors.mainColor,
+                fit: BoxFit.fitWidth,
               ),
             ),
-          ],
-        )
+          ),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: const Center(
+          child: Text(
+            'Addresses',
+            style: TextStyle(color: Colors.grey),
+          ),
+        ),
+        actions: const [
+          SizedBox(width: 50),
+        ],
+      ),
+      body: BlocBuilder<AddressCubit, AddressState>(
+        builder: (context, state) {
+          return state is AddressLoadingState
+              ? const CustomLoadingIndicator()
+              :  Stack(
+                      children: [
+                        AddressesList(),
+                        const Align(
+                          alignment: Alignment.bottomCenter,
+                          child: AddAddressButton(),
+                        )
+                      ],
+                    );
+        },
+      ),
     );
-  },
-);
   }
 }

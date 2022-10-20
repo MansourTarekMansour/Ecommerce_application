@@ -9,6 +9,8 @@ class AddressLoadingState extends AddressState {}
 
 class AddressSuccessState extends AddressState {}
 
+class AddressAddSuccessState extends AddressState {}
+
 class AddressErrorState extends AddressState {
   final String error;
 

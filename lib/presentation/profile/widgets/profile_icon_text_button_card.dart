@@ -10,12 +10,18 @@ class ProfileIconTextButtonCard extends StatelessWidget {
     required this.hint,
     this.iconColor = Colors.grey,
     required this.onPress,
+    this.iconSize = 40,
+    this.positionIconLeft = 15,
+    this.positionIconTop = 15,
   }) : super(key: key);
   final String text;
   final String hint;
   final String iconPath;
   Color iconColor;
   final VoidCallback onPress;
+  final double iconSize;
+  final double positionIconLeft;
+  final double positionIconTop;
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +44,13 @@ class ProfileIconTextButtonCard extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 15,
-          left: 15,
+          top: positionIconTop,
+          left: positionIconLeft,
           child: SvgPicture.asset(
             iconPath,
             fit: BoxFit.fitWidth,
-            width: 40,
-            color: Colors.grey,
+            width: iconSize,
+            color: iconColor,
           ),
         ),
         Positioned(
@@ -91,7 +97,7 @@ class ProfileIconTextButtonCard extends StatelessWidget {
             onTap: onPress,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              height: 80,
+              height: 70,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(
                   Radius.circular(15),

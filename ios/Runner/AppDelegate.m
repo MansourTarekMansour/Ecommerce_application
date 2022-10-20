@@ -12,10 +12,10 @@
   // Override point for customization after application launch.
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
-- (BOOL)application:(UIApplication *)application
-    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  [GMSServices provideAPIKey:@"YOUR KEY HERE"];
-  [GeneratedPluginRegistrant registerWithRegistry:self];
-  return [super application:application didFinishLaunchingWithOptions:launchOptions];
-}
+//- (BOOL)application:(UIApplication *)application
+//    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+//  [GMSServices provideAPIKey:@"YOUR KEY HERE"];
+//  [GeneratedPluginRegistrant registerWithRegistry:self];
+//  return [super application:application didFinishLaunchingWithOptions:launchOptions];
+//}
 @end
