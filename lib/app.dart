@@ -96,6 +96,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) =>
                 PaymentCubit(PaymentRepository(PaymentWebService()))),
+        BlocProvider(
+            create: (context) =>
+                OrderCubit(OrderRepository(OrderWebService()))..getOrders()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

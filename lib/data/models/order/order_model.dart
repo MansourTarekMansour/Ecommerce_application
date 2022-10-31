@@ -24,7 +24,7 @@ class Data {
     required this.status,
   });
   late final int id;
-  late final int? total;
+  late final dynamic? total;
   late final String date;
   late final String status;
 
