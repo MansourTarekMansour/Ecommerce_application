@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:man_shop_app/core/utils/app_colors.dart';
 import 'package:man_shop_app/presentation/order/bloc/order_cubit.dart';
 
@@ -17,7 +18,7 @@ class OrderCardListView extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Container(
-            //height: 80.0,
+            height: 80.0,
             width: double.infinity,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -28,66 +29,86 @@ class OrderCardListView extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.all(20.0),
-              child: Column(
+              child: Row(
                 children: [
-                  Row(
-                    children: [
-                      const Text(
-                        "Order number: ",
-                        style: TextStyle(
-                          fontSize: 13,
-                          //fontWeight: FontWeight.bold,
+                  Expanded(
+                    flex: 8,
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Text(
+                              "Order number: ",
+                              style: TextStyle(
+                                fontSize: 13,
+                                //fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              orderCubit.orderModel!.data[index].id.toString(),
+                              style: const TextStyle(
+                                fontSize: 13,
+                              ),
+                            ),
+                            const Spacer(),
+                            Text(
+                              orderCubit.orderModel!.data[index].date,
+                              style: const TextStyle(
+                                fontSize: 10,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      Text(
-                        orderCubit.orderModel!.data[index].id.toString(),
-                        style: const TextStyle(
-                          fontSize: 13,
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            const Text(
+                              "Total: ",
+                              style: TextStyle(
+                                fontSize: 13,
+                              ),
+                            ),
+                            Text(
+                              orderCubit.orderModel!.data[index].total is int
+                                  ? orderCubit.orderModel!.data[index].total.toString()
+                                  : (orderCubit.orderModel!.data[index].total as double).round().toString(),
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: Colors.blue,
+                              ),
+                            ),
+                            const Spacer(),
+                            const Text(
+                              "State: ",
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.grey,
+                                //fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              orderCubit.orderModel!.data[index].status.toString(),
+                              style: const TextStyle(
+                                fontSize: 10,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      const Spacer(),
-                      Text(
-                        orderCubit.orderModel!.data[index].date,
-                        style: const TextStyle(
-                          fontSize: 10,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 5),
-                  Row(
-                    children: [
-                      const Text(
-                        "Total: ",
-                        style: TextStyle(
-                          fontSize: 13,
-                        ),
+                  Expanded(
+                    flex: 1,
+                    child: Align(
+                     alignment: Alignment.centerRight,
+                      child: SvgPicture.asset(
+                        'assets/images/back_arrow.svg',
+                        color: Colors.grey,
+                        height: 20,
                       ),
-                      Text(
-                        orderCubit.orderModel!.data[index].total.toString(),
-                        style: const TextStyle(
-                          fontSize: 13,
-                          color: Colors.blue,
-                        ),
-                      ),
-                      const Spacer(),
-                      const Text(
-                        "State: ",
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.grey,
-                          //fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        orderCubit.orderModel!.data[index].status.toString(),
-                        style: const TextStyle(
-                          fontSize: 10,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
