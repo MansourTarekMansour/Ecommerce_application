@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
                           ProductsWidget(
                             products: homeCubit.homeModel.data.products,
                           ),
-                          const SizedBox(height: 30.0),
+                          const SizedBox(height: 70.0),
                         ],
                       ),
                     ),
